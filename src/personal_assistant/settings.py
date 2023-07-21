@@ -20,7 +20,7 @@ import openai
 BASE_DIR = Path(__file__).resolve().parent.parent
 env = environ.Env()
 environ.Env.read_env(BASE_DIR/".env")
-# print(f'{BASE_DIR} ~~ YOUR BASE_DIR')
+print(f'{BASE_DIR} ~~ YOUR BASE_DIR')
 # /Users/ekaterina/Documents/GitHub/Personal-Assistant-Django
 Secret_Key = env("SECRET_KEY")
 # Quick-start development settings - unsuitable for production

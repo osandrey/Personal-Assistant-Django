@@ -5,11 +5,12 @@ from django.contrib.postgres.fields import ArrayField
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
 
-from usersapp.models import CustomUser
+"""To import top-level model from any app"""
+from django.contrib.auth import get_user_model
 
 
 class Contact(models.Model):
-    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
     birth_date = models.DateField(blank=True, null=True, default=None)

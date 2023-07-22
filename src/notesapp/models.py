@@ -1,7 +1,5 @@
 from django.db import models
-
-
-from usersapp.models import CustomUser
+from src.usersapp.models import CustomUser
 
 
 class Tag(models.Model):

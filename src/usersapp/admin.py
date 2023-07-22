@@ -1,4 +1,5 @@
 from django.contrib import admin
+
 from .models import CustomUser
 # Register your models here.
 
@@ -39,3 +40,4 @@ class CustomUserAdmin(admin.ModelAdmin):
 admin.site.site_header = "Personal-Assistent"
 admin.site.site_title = "Assistent System"
 admin.site.index_title = 'Assistent Dashboard'
+

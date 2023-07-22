@@ -1,4 +1,5 @@
 from django.db import models
+
 from django.core.validators import RegexValidator
 from django.contrib.postgres.fields import ArrayField
 from datetime import datetime
@@ -50,3 +51,4 @@ class Contact(models.Model):
     def age(self):
         age_delta = relativedelta(datetime.utcnow(), self.birth_date)
         return age_delta.years
+

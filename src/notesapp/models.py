@@ -1,5 +1,6 @@
 from django.db import models
 
+
 from usersapp.models import CustomUser
 
 
@@ -13,4 +14,5 @@ class Note(models.Model):
     title = models.CharField(max_length=255)
     description = models.TextField()
     tags = models.ManyToManyField(Tag)
+
 

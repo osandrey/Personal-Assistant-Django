@@ -50,10 +50,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
     'usersapp',
-    'ai_chat_bot',
+    # 'ai_chat_bot',
     'contactsapp',
+    'notesapp'
 
 ]
 

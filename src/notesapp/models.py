@@ -1,5 +1,5 @@
 from django.db import models
-from src.usersapp.models import CustomUser
+from usersapp.models import CustomUser
 
 
 class Tag(models.Model):
@@ -13,4 +13,5 @@ class Note(models.Model):
     description = models.TextField()
     tags = models.ManyToManyField(Tag)
 
-
+    def __str__(self):
+        return self.title

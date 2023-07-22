@@ -22,5 +22,5 @@ urlpatterns = [
     path('users/', include('usersapp.urls')),
     path('bot/', include('ai_chat_bot.urls')),
     path('contacts/', include('contactsapp.urls')),
-
+    path('notes/', include('notesapp.urls')),
 ]

@@ -1,0 +1,14 @@
+{% extends 'usersapp/base.html' %}
+{% load static %}
+{% block content%}
+<h1>Index Page</h1>
+    {% if user.is_authenticated %}
+<div class="d-flex justify-content-center">
+    <a href="{% url 'usersapp:logout_user' %}" class="btn btn-success btn-block btn-lg gradient-custom-5 text-body">
+        Logout
+    </a>
+
+
+</div>
+{% endif %}
+{% endblock %}

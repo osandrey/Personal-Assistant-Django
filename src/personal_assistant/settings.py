@@ -51,7 +51,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'usersapp'
+    'usersapp',
+    'ai_chat_bot',
+    'contactsapp',
+
 ]
 
 MIDDLEWARE = [
@@ -86,15 +89,27 @@ WSGI_APPLICATION = 'personal_assistant.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
+"""Local PostgreSQL"""
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': env('DATABASE_NAME'),
+#         'USER': env('DATABASE_USER'),
+#         'PASSWORD': env('DATABASE_PASSWORD'),
+#         'HOST': env('DATABASE_HOST'),
+#         'PORT': env('DATABASE_PORT'),
+#     }
+# }
 
+"""Cloud Elephant PostgreSQL"""
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': env('DATABASE_NAME'),
-        'USER': env('DATABASE_USER'),
-        'PASSWORD': env('DATABASE_PASSWORD'),
-        'HOST': env('DATABASE_HOST'),
-        'PORT': env('DATABASE_PORT'),
+        'NAME': env('ELEPHANT_DATABASE_NAME'),
+        'USER': env('ELEPHANT_DATABASE_USER'),
+        'PASSWORD': env('ELEPHANT_DATABASE_PASSWORD'),
+        'HOST': env('ELEPHANT_DATABASE_HOST'),
+        'PORT': env('ELEPHANT_DATABASE_PORT'),
     }
 }
 
@@ -145,13 +160,25 @@ STATIC_ROOT = [os.path.join(BASE_DIR, 'static')]
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = env('EMAIL_HOST')
-EMAIL_PORT = env('EMAIL_PORT')
-EMAIL_STARTTLS = False
-EMAIL_USE_SSL = True
-EMAIL_USE_TLS = False
-EMAIL_HOST_USER = env('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
-DEFAULT_FROM_EMAIL = env('EMAIL_HOST_USER')
+"""For Meta UA"""
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_HOST = env('EMAIL_HOST')
+# EMAIL_PORT = env('EMAIL_PORT')
+# EMAIL_STARTTLS = False
+# EMAIL_USE_SSL = True
+# EMAIL_USE_TLS = False
+# EMAIL_HOST_USER = env('EMAIL_HOST_USER')
+# EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
+# DEFAULT_FROM_EMAIL = env('EMAIL_HOST_USER')
+#
+"""For Gmail"""
 
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = env('GMAIL_HOST')
+EMAIL_PORT = env('GMAIL_PORT')
+# EMAIL_STARTTLS = False
+# EMAIL_USE_SSL = True
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = env('GMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = env('GMAIL_HOST_PASSWORD')
+DEFAULT_FROM_EMAIL = env('GMAIL_HOST_USER')

@@ -4,11 +4,11 @@ from django.contrib.postgres.fields import ArrayField
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
 
-from usersapp.models import User
+from usersapp.models import CustomUser
 
 
 class Contact(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
     birth_date = models.DateField(blank=True, null=True, default=None)
@@ -21,13 +21,13 @@ class Contact(models.Model):
     updated_at = models.DateTimeField(blank=True, default=None)
     MALE = "male"
     FEMALE = "female"
-    SEXES = [
+    GENDER = [
         (MALE, "male"),
         (FEMALE, "female"),
     ]
     sex = models.CharField(
         max_length=6,
-        choices=SEXES,
+        choices=GENDER,
     )
     FAMILY = "family"
     FRIEND = "friend"

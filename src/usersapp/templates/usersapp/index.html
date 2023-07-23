@@ -26,10 +26,52 @@
                                    class="btn btn-success btn-block btn-lg gradient-custom-5 text-body">
                                     Logout
                                 </a>
+
                                 {% endif %}
                             </div>
+
                         </div>
+
+                <ul>
                     </div>
+                    <br>
+                <ul>
+                    <li role="list" dir="rtl">
+                      <a href="#" aria-haspopup="listbox" role="button">Contact</a>
+                      <ul role="listbox">
+                        <li role="button" ><a href="{% url 'contactsapp:add_contact' %}">Add contact</a></li>
+                        <li role="button" ><a href="{% url 'contactsapp:add_contact' %}">Search contact</a></li>
+                      </ul>
+                    </li>
+                </ul>
+                <ul>
+                    <li role="list" dir="rtl">
+                      <a href="#" aria-haspopup="listbox" role="button">Note</a>
+                      <ul role="listbox">
+                        <li role="button" ><a href="{% url 'contactsapp:add_contact' %}">Add note</a></li>
+                        <li role="button" ><a href="{% url 'contactsapp:add_contact' %}">Search note</a></li>
+                      </ul>
+                    </li>
+                </ul>
+                <ul>
+                    <li role="list" dir="rtl">
+                      <a href="#" aria-haspopup="listbox" role="button">File</a>
+                      <ul role="listbox">
+                        <li role="button" ><a href="{% url 'contactsapp:add_contact' %}">Load file</a></li>
+                        <li role="button" ><a href="{% url 'contactsapp:add_contact' %}">Download file</a></li>
+                      </ul>
+                    </li>
+                </ul>
+
+                <ul>
+                    <li role="list" dir="rtl">
+                      <a href="#" aria-haspopup="listbox" role="button">News</a>
+                      <ul role="listbox">
+                        <li role="button" ><a href="{% url 'contactsapp:add_contact' %}">Politic</a></li>
+                        <li role="button" ><a href="{% url 'contactsapp:add_contact' %}">Sport</a></li>
+                      </ul>
+                    </li>
+                </ul>
                 </div>
             </div>
         </div>

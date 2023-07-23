@@ -1,13 +1,17 @@
-{% extends "newsapp/base.html" %}
+{% extends "usersapp/base.html" %}
 
 {% block content %}
-<h4 class="text-center">Create Contact</h4>
+<h4 class="text-center">Add Contact</h4>
 <div class="container-fluid me-2 pe-3">
-    <form class="container me-2" method="POST" action="{% url 'contactapp:create_contact' %}">
+    <form class="container me-2" method="POST" action="{% url 'contactsapp:add_contact' %}">
         {% csrf_token %}
         <div style="container me-2">
-            <label class="form-label">Contact Name:</label>
-            <div class="row col-4">{{form.name}}</div>
+            <label class="form-label">Contact first name:</label>
+            <div class="row col-4">{{form.first_name}}</div>
+        </div>
+        <div style="container me-2">
+            <label class="form-label">Contact last name:</label>
+            <div class="row col-4">{{form.last_name}}</div>
         </div>
         <div style="container me-2">
             <label class="form-label">Contact address:</label>
@@ -22,8 +26,16 @@
             <div class="row col-4">{{form.email}}</div>
         </div>
         <div style="container me-2">
-            <label class="form-label">Contact birth_date:</label>
+            <label class="form-label">Contact birthday date:</label>
             <div class="row col-4">{{form.birth_date}}</div>
+        </div>
+        <div style="container me-2">
+            <label class="form-label">Contact sex:</label>
+            <div class="row col-4">{{form.sex}}</div>
+        </div>
+        <div style="container me-2">
+            <label class="form-label">Contact status:</label>
+            <div class="row col-4">{{form.status}}</div>
         </div>
         <div class="grid mt-2">
             <button class="btn btn-success mx-3" type="submit">Submit</button>

@@ -45,7 +45,7 @@ def delete_contact(request, contact_id):
 
 
 @login_required
-def search_contacts(request):
+def search_contact(request):
     search_query = request.GET.get('search_query', '')
     user_contacts = Contact.objects.filter(user=request.user)
     search_results = user_contacts.filter(

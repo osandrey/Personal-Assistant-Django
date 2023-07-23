@@ -8,5 +8,7 @@ app_name = 'ai_chat_bot'
 
 urlpatterns = [
     path('', main, name='main'),
-    path('/tg', redirect_check, name='redirect_check')
+    # path('tg/<str:query>/', redirect_check, name='redirect_check')
+    path('redirect_check/(?P<query>[^/]+)?/', redirect_check, name='redirect_check'),
+
     ]

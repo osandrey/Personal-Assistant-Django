@@ -1,61 +1,61 @@
 {% extends 'usersapp/base.html' %}
 {% load static %}
 {% block content %}
-<section class="vh-100 bg-image"
-         style="background-image: url('https://mdbcdn.b-cdn.net/img/Photos/new-templates/search-box/img4.webp');">
-    <div class="mask d-flex align-items-center h-100 gradient-custom-3">
+<!--<section class="vh-100 bg-image"-->
+<!--         style="background-image: url('https://mdbcdn.b-cdn.net/img/Photos/new-templates/search-box/img4.webp');">-->
+<!--    <div class="mask d-flex align-items-center h-100 gradient-custom-3">-->
         <div class="container h-100">
             <div class="row d-flex justify-content-center align-items-center h-100">
-                <div class="col-12 col-md-9 col-lg-7 col-xl-5">
+                <div class="col-12 col-md-7 col-lg-7 col-xl-5">
                     <div class="card" style="border-radius: 15px;">
                         <div class="card-body p-5">
-                            <h2 class="text-uppercase text-center mb-3">Create an account</h2>
+                            <h2 class="text-uppercase text-center mb-2">Create an account</h2>
 
                             <form method="post" action="{% url 'usersapp:create_user_profile' %}">
                                 {% csrf_token %}
 
 
-                                <div class="form-outline d-flex justify-content-center mb-2">
+                                <div class="form-outline d-flex justify-content-center mb-1">
                                     <!--                                    <input type="email" id="form3Example3cg" class="form-control form-control-lg"/>-->
                                     <label class="form-label">Your Email: {{ form.email }}</label>
                                     <span>{{form.errors.email}}</span>
                                 </div>
 
 
-                                <div class="form-outline d-flex justify-content-center mb-2">
+                                <div class="form-outline d-flex justify-content-center mb-1">
                                     <!--                                    <input type="text" id="form3Example6cg" class="form-control form-control-lg"/>-->
                                     <label class="form-label">Your Username: {{ form.username }}</label>
                                     <span>{{form.errors.username}}</span>
                                 </div>
 
 
-                                <div class="form-outline d-flex justify-content-center mb-2">
+                                <div class="form-outline d-flex justify-content-center mb-1">
                                     <!--                                    <input type="text" id="form3Example1cg" class="form-control form-control-lg"/>-->
                                     <label class="form-label">Your First Name: {{ form.first_name }}</label>
                                     <span>{{form.errors.first_name}}</span>
                                 </div>
 
 
-                                <div class="form-outline d-flex justify-content-center mb-2">
+                                <div class="form-outline d-flex justify-content-center mb-1">
                                     <!--                                    <input type="text" id="form3Example2cg" class="form-control form-control-lg"/>-->
                                     <label class="form-label">Your Last Name: {{ form.last_name }}</label>
                                     <span>{{form.errors.last_name}}</span>
                                 </div>
 
 
-                                <div class="form-outline d-flex justify-content-center mb-2">
+                                <div class="form-outline d-flex justify-content-center mb-1">
                                     <!--                                    <input type="password" id="form3Example4cg" class="form-control form-control-lg"/>-->
                                     <label class="form-label">Password: {{ form.password1 }}</label>
                                     <span>{{form.errors.password1}}</span>
                                 </div>
 
-                                <div class="form-outline d-flex justify-content-center mb-2">
+                                <div class="form-outline d-flex justify-content-center mb-1">
                                     <!--                                    <input type="password" id="form3Example4cdg" class="form-control form-control-lg"/>-->
                                     <label class="form-label">Repeat your password: {{ form.password2 }}</label>
                                     <span>{{form.errors.password2}}</span>
                                 </div>
 
-                                <div class="form-check d-flex justify-content-center mb-3">
+                                <div class="form-check d-flex justify-content-center mb-2">
                                     <input class="form-check-input me-2" type="checkbox" value="" id="form2Example3cg"/>
                                     <label class="form-check-label" for="form2Example3cg">
                                         I agree all statements in <a href="#!" class="text-body"><u>Terms of service</u></a>
@@ -81,17 +81,17 @@
             </div>
         </div>
     </div>
-    <style> .gradient-custom-3 {
-            background: #84fab0;
-            background: -webkit-linear-gradient(to right, rgba(132, 250, 176, 0.5), rgba(143, 211, 244, 0.5));
-            background: linear-gradient(to right, rgba(132, 250, 176, 0.5), rgba(143, 211, 244, 0.5))
-}
-.gradient-custom-4 {
-    background: #84fab0;
-    background: -webkit-linear-gradient(to right, rgba(132, 250, 176, 1), rgba(143, 211, 244, 1));
-    background: linear-gradient(to right, rgba(132, 250, 176, 1), rgba(143, 211, 244, 1))
-}
+<!--    <style> .gradient-custom-3 {-->
+<!--            background: #84fab0;-->
+<!--            background: -webkit-linear-gradient(to right, rgba(132, 250, 176, 0.5), rgba(143, 211, 244, 0.5));-->
+<!--            background: linear-gradient(to right, rgba(132, 250, 176, 0.5), rgba(143, 211, 244, 0.5))-->
+<!--}-->
+<!--.gradient-custom-4 {-->
+<!--    background: #84fab0;-->
+<!--    background: -webkit-linear-gradient(to right, rgba(132, 250, 176, 1), rgba(143, 211, 244, 1));-->
+<!--    background: linear-gradient(to right, rgba(132, 250, 176, 1), rgba(143, 211, 244, 1))-->
+<!--}-->
 
-    </style>
-</section>
+<!--    </style>-->
+
 {% endblock %}

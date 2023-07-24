@@ -105,7 +105,7 @@ def login_user(request):
 @login_required
 def logout_user(request):
     logout(request)
-    return redirect(to='usersapp:main')
+    return redirect(to='usersapp:login_user')
 
 
 class ResetPasswordView(SuccessMessageMixin, PasswordResetView):

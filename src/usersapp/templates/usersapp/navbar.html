@@ -1,90 +1,89 @@
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
-  <div class="container-fluid">
-    <div class="navbar-brand">Navbar scroll</div>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-<!--      <button-->
-<!--            class="navbar-toggler"-->
-<!--            type="button"-->
-<!--            data-toggle="collapse"-->
-<!--            data-target="#navbarScroll"-->
-<!--            aria-controls="navbarScroll"-->
-<!--            aria-expanded="false"-->
-<!--            aria-label="Toggle navigation">-->
-<!--        <span class="navbar-toggler-icon"></span>-->
-<!--    </button>-->
-    <div class="collapse navbar-collapse" id="navbarScroll">
-      <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Link</a>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Link
-          </a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
-          </ul>
-        </li>
-        <li class="nav-item">
-          <a href="{% url 'clients:create_client_profile' %}" type="button" class="btn btn-info" style="padding: 5px 10px;  margin-left: 10px;">Create Citizen Form</a>
-        </li>
-         {% if user.is_authenticated %}
-        <li class="nav-item">
-          <a href="{% url 'clients:view_forms_list' %}" type="button" class="btn btn-info" style="padding: 5px 10px;  margin-left: 10px;">View Citizens Forms</a>
-        </li>
-        {% endif %}
-      </ul>
+    <div class="container-fluid">
+        <div class="navbar-brand"><a class="navbar-brand" href="{% url 'usersapp:main' %}">Personal Assistent</a></div>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll"
+                aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <!--      <button-->
+        <!--            class="navbar-toggler"-->
+        <!--            type="button"-->
+        <!--            data-toggle="collapse"-->
+        <!--            data-target="#navbarScroll"-->
+        <!--            aria-controls="navbarScroll"-->
+        <!--            aria-expanded="false"-->
+        <!--            aria-label="Toggle navigation">-->
+        <!--        <span class="navbar-toggler-icon"></span>-->
+        <!--    </button>-->
+        <div class="collapse navbar-collapse" id="navbarScroll">
+            <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+                <li role="list" dir="rtl">
+                    <a href="#" aria-haspopup="listbox" role="button">Contact</a>
+                    <ul role="listbox">
+                        <li role="button"><a href="{% url 'contactsapp:add_contact' %}">Add contact</a></li>
+                        <li role="button"><a href="{% url 'contactsapp:add_contact' %}">Search contact</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <ul>
+                <li role="list" dir="rtl">
+                    <a href="#" aria-haspopup="listbox" role="button">Note</a>
+                    <ul role="listbox">
+                        <li role="button"><a href="{% url 'contactsapp:add_contact' %}">Add note</a></li>
+                        <li role="button"><a href="{% url 'contactsapp:add_contact' %}">Search note</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <ul>
+                <li role="list" dir="rtl">
+                    <a href="#" aria-haspopup="listbox" role="button">File</a>
+                    <ul role="listbox">
+                        <li role="button"><a href="{% url 'contactsapp:add_contact' %}">Load file</a></li>
+                        <li role="button"><a href="{% url 'contactsapp:add_contact' %}">Download file</a></li>
+                    </ul>
+                </li>
+            </ul>
+
+            <ul>
+                <li role="list" dir="rtl">
+                    <a href="#" aria-haspopup="listbox" role="button">News</a>
+                    <ul role="listbox">
+                        <li role="button"><a href="{% url 'contactsapp:add_contact' %}">Politic</a></li>
+                        <li role="button"><a href="{% url 'contactsapp:add_contact' %}">Sport</a></li>
+                    </ul>
+                </li>
+            </ul>
 
 
-      <form class="d-flex" role="search" method="GET" action="{{ get_absolute_url }}/clients/search/">
-        <input class="form-control me-2" name="q" type="search" placeholder="Search" aria-label="Search">
-     <button class="btn btn-outline-success" type="submit" class="btn btn-warning" style="padding: 5px 10px;">Search</button>
-      </form>
+            <form class="d-flex" role="search" method="GET" action="{{ get_absolute_url }}/contacts/search/">
+                <input class="form-control me-2" name="q" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit" class="btn btn-warning"
+                        style="padding: 5px 10px;">Search
+                </button>
+            </form>
 
 
-      {% if user.is_authenticated %}
-    <a href="{% url 'users:logout_user' %}" type="button" class="btn btn-warning" style="padding: 5px 10px;  margin-left: 10px;">Logout</a>
-      {% else %}
-    <a href="{% url 'users:login_user' %}" type="button" class="btn btn-secondary" class="btn btn-warning" style="padding: 5px 10px;  margin-left: 10px;">Login</a>
-    <a href="{% url 'users:create_user_profile' %}" type="button" class="btn btn-success" class="btn btn-warning" style="padding: 5px 10px;  margin-left: 10px;">Sign Up</a>
-      {% endif %}
+            {% if user.is_authenticated %}
+            <div class="d-flex justify-content-center">
+                <a href="{% url 'usersapp:logout_user' %}"
+                   class="btn btn-success btn-block btn-lg gradient-custom-5 text-body">
+                    Logout
+                </a>
 
-<!--      <style>-->
-<!--      /* Media query for screens with max-width 850px */-->
-<!--      @media screen and (max-width: 850px) {-->
-<!--        .navbar-nav {-->
-<!--          flex-direction: column;-->
-<!--        }-->
-<!--        .navbar-toggler {-->
-<!--          order: 3;-->
-<!--        }-->
-<!--        .collapse.navbar-collapse {-->
-<!--          order: 4;-->
-<!--        }-->
-<!--        .navbar-nav-scroll {-->
-<!--          max-height: 200px;-->
-<!--          overflow-y: auto;-->
-<!--        }-->
-<!--        .navbar-nav-scroll li {-->
-<!--          margin-bottom: 10px;-->
-<!--        }-->
-<!--        .navbar-nav-scroll li:last-child {-->
-<!--          margin-bottom: 0;-->
-<!--        }-->
-<!--        .navbar-nav-scroll li a {-->
-<!--          padding: 5px;-->
-<!--        }-->
-<!--      }-->
-<!--    </style>-->
 
+                {% else %}
+                <div class="d-flex justify-content-center button-container">
+                    <a href="{% url 'usersapp:login_user' %}" type="button"
+                       class="btn btn-success btn-block btn-lg gradient-custom-5 text-body"
+                       style="padding: 5px 10px;  margin-left: 10px;">Login</a>
+                    <a href="{% url 'usersapp:create_user_profile' %}" type="button"
+                       class="btn btn-success btn-block btn-lg gradient-custom-5 text-body"
+                       style="padding: 5px 10px;  margin-left: 10px;">Sign Up</a>
+                </div>
+                {% endif %}
+
+
+            </div>
+        </div>
     </div>
-  </div>
 </nav>

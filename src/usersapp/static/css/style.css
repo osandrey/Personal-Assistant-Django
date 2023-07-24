@@ -46,4 +46,14 @@ border-bottom-right-radius: .3rem;
 
 .button-container .btn:first-child {
         margin-right: 10px;
+
+
+/* Add green and aqua styles for the navbar */
+.navbar {
+  background-color: rgba(0, 255, 255, 0.5);;
+  color: rgba(0, 255, 255, 0.5);
+}
+
+
+}
 </style>

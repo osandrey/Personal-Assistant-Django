@@ -113,14 +113,15 @@
                         <td>{{contact.status}}</td>
                         <td>{{contact.sex}}</td>
                         <td>
-                            {% set info=contact.first_name|contact.last_name %}
+                            {{ contact.first_name}}
+                            {{contact.last_name}}
                             {% with query=info %}
                             <div class="small text-center button-container">
-                                <a href="{% url 'ai_chat_bot:redirect_check' query %}" class="text-center"><i>Virtual
+                                <a href="{% url 'ai_chat_bot:redirect_check' %}" class="text-center"><i>Virtual
                                     Contact Chat</i></a>
                             </div>
                             {% endwith %}
-                            {%  %}
+
 
                         </td>
                     </tr>

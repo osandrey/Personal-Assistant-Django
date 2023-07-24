@@ -17,7 +17,7 @@ def add_contact(request):
             contact = form.save(commit=False)
             contact.user = request.user
             contact.save()
-            return redirect('usersapp/index.html')
+            return redirect(to='usersapp:main')
     else:
         form = ContactForm()
     return render(request, 'contactsapp/add_contact.html', context={'form': form})
@@ -29,7 +29,7 @@ def update_contact(request, contact_id):
     if request.method == 'POST':
         form = ContactForm(request.POST, instance=contact)
         if form.is_valid():
-            return redirect('usersapp/index.html')
+            return redirect(to='usersapp:main')
     else:
         form = ContactForm(instance=contact)
     return render(request, 'contactsapp/update_contact.html', context={'form': form, 'contact': contact})
@@ -40,7 +40,7 @@ def delete_contact(request, contact_id):
     contact = get_object_or_404(Contact, pk=contact_id, user=request.user)
     if request.method == 'POST':
         contact.delete()
-        return redirect('usersapp/index.html')
+        return redirect(to='usersapp:main')
     return render(request, 'contactsapp/delete_contact.html', context={'contact': contact})
 
 

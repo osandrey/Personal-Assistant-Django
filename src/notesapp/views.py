@@ -24,7 +24,7 @@ def add_tag(request):
             tag = form.save(commit=False)
             tag.user = request.user
             tag.save()
-            return redirect(to="#")
+            return redirect(to='usersapp:main')
         else:
             return render(request, 'notesapp/add_tag.html', context={'form': form})
 
@@ -40,10 +40,10 @@ def add_note(request):
             note = form.save(commit=False)
             note.user = request.user
             note.save()
-            choice_tags = Tag.objects.filter(tag_name__in=request.POST.getlist('tags'), user=request.user)
+            choice_tags = Tag.objects.filter(name__in=request.POST.getlist('tags'), user=request.user)
             for tag in choice_tags:
                 note.tags.add(tag)
-            return redirect(to="#")
+            return redirect(to='usersapp:main')
         else:
             return render(request, 'notesapp/add_note.html',  context={'form': form, 'tags': tags})
 

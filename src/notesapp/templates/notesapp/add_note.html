@@ -1,0 +1,32 @@
+{% extends "usersapp/base.html" %}
+
+{% block content %}
+<h4 class="text-center">Add note</h4>
+<div class="container-fluid me-2 pe-3">
+    <form class="container me-2" method="POST" action="{% url 'notesapp:add_note' %}">
+        {% csrf_token %}
+        <div style="container me-2">
+            <label class="form-label">Add title*:</label>
+            <div class="row col-4">{{form.title}}</div>
+        </div>
+        <div style="container me-2">
+            <label class="form-label">Add description*:</label>
+            <div class="row col-4">{{form.description}}</div>
+        </div>
+        <div style="container me-2">
+        <label> Select tags:
+            <select name="tags" multiple="multiple" required>
+                {% for tag in tags %}
+                <option value="{{tag.name}}">{{tag.name}}</option>
+                {% endfor %}
+            </select>
+        </label>
+        </div>
+        <div class="grid mt-2">
+            <button class="btn btn-success mx-3" type="submit">Submit</button>
+            <button class="btn btn-danger" type="reset">Reset</button>
+        </div>
+    </form>
+</div>
+
+{% endblock %}

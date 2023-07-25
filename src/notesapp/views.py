@@ -2,18 +2,26 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from django.core.paginator import Paginator
 
-from .forms import TagForm, NoteForm, NoteSearchForm
+from .forms import TagForm, NoteForm
 from .models import Tag, Note
+from django.db import models
 
 
 @login_required
 def search_note(request):
-    form = NoteSearchForm(request.GET)
-    keyword = request.GET.get('keyword', None)
-    notes = Note.objects.filter(user=request.user).all()
-    if keyword:
-        notes = notes.filter(title__icontains=keyword) | notes.filter(description__icontains=keyword)
-    return render(request, 'search_note.html', {'form': form, 'notes': notes})
+    search_query = request.GET.get('search_query', '')
+    user_notes = Note.objects.filter(user=request.user)
+    search_results = user_notes.filter(
+        models.Q(title__icontains=search_query) |
+        models.Q(description__icontains=search_query)
+    )
+
+    context = {
+        'search_query': search_query,
+        'search_results': search_results
+    }
+
+    return render(request, 'notesapp/search_note.html', context)
 
 
 @login_required
@@ -61,14 +69,13 @@ def delete_note(request, note_id):
     note = get_object_or_404(Note, pk=note_id, user=request.user)
     if request.method == 'POST':
         note.delete()
-        return redirect(to="#")
+        return redirect(to='usersapp:main')
     return render(request, 'notesapp/delete_note.html', {'note': note})
 
 
 @login_required
 def update_note(request, note_id):
     note = get_object_or_404(Note, pk=note_id, user=request.user)
-    tags = note.tags.all()
 
     if request.method == 'POST':
         form = NoteForm(request.POST, instance=note)
@@ -76,8 +83,10 @@ def update_note(request, note_id):
             note = form.save(commit=False)
             note.user = request.user
             note.save()
-            note.tags.set(tags)
-            return redirect(to="#", note_id=note_id)
+            choice_tags = Tag.objects.filter(name__in=request.POST.getlist('tags'), user=request.user)
+            for tag in choice_tags:
+                note.tags.add(tag)
+            return redirect(to='usersapp:main', note_id=note_id)
         else:
             return render(request, 'notesapp/update_note.html', context={'form': form})
 

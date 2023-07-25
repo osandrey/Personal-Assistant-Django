@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
     <div class="container-fluid">
-        <div class="navbar-brand"><a class="navbar-brand" href="{% url 'usersapp:main' %}">Personal Assistent</a></div>
+        <div class="navbar-brand"><a class="navbar-brand" href="{% url 'usersapp:main' %}"><h2>Personal Assistant</h2></a></div>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll"
                 aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -16,12 +16,12 @@
         <!--        <span class="navbar-toggler-icon"></span>-->
         <!--    </button>-->
         <div class="collapse navbar-collapse" id="navbarScroll">
-            <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+            <ul>
                 <li role="list" dir="rtl">
                     <a href="#" aria-haspopup="listbox" role="button">Contact</a>
                     <ul role="listbox">
                         <li role="button"><a href="{% url 'contactsapp:add_contact' %}">Add contact</a></li>
-                        <li role="button"><a href="#">Search contact</a></li>
+                        <li role="button"><a href="{% url 'contactsapp:search_contact' %}">Search contact</a></li>
                     </ul>
                 </li>
             </ul>
@@ -31,7 +31,7 @@
                     <ul role="listbox">
                         <li role="button"><a href="{% url 'notesapp:add_tag' %}">Add tag</a></li>
                         <li role="button"><a href="{% url 'notesapp:add_note' %}">Add note</a></li>
-                        <li role="button"><a href="#">Search note</a></li>
+                        <li role="button"><a href="{% url 'notesapp:search_note' %}">Search note</a></li>
                     </ul>
                 </li>
             </ul>

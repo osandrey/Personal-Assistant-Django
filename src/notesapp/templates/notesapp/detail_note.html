@@ -8,7 +8,8 @@
                 <div class="flex-fill">
                     <strong>Title:</strong> {{ note.title }}<br>
                     <strong>Description:</strong> {{ note.description }}<br>
-                    <strong>Tags:</strong> {{ note.tags|tags }},
+                    <strong>Tags:</strong> {% for tag in note.tags.all %} {{tag.name}},{% endfor %}
+
                 </div>
                 <div class="d-flex align-items-center">
                     <a class="btn btn-warning mx-2"  href="{% url 'notesapp:update_note' note.id %}">Update note</a>

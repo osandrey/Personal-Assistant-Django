@@ -10,6 +10,30 @@ from .forms import ContactForm
 
 
 @login_required
+def search_contact(request):
+    search_query = request.GET.get('search_query', '')
+    user_contacts = Contact.objects.filter(user=request.user)
+    search_results = user_contacts.filter(
+        models.Q(first_name__icontains=search_query) |
+        models.Q(last_name__icontains=search_query) |
+        models.Q(address__icontains=search_query) |
+        models.Q(phone_number__icontains=search_query) |
+        models.Q(email__icontains=search_query) |
+        models.Q(birth_date__icontains=search_query)
+    )
+    if search_query == ' ' or search_query == 'all':
+        all_results = Contact.objects.all()
+        return render(request, 'contactsapp/search_contact.html', {'all_results': all_results, 'search_query': search_query})
+    else:
+        context = {
+            'search_query': search_query,
+            'search_results': search_results
+        }
+
+        return render(request, 'contactsapp/search_contact.html', context)
+
+
+@login_required
 def add_contact(request):
     if request.method == 'POST':
         form = ContactForm(request.POST)
@@ -29,10 +53,20 @@ def update_contact(request, contact_id):
     if request.method == 'POST':
         form = ContactForm(request.POST, instance=contact)
         if form.is_valid():
-            return redirect(to='usersapp:main')
+            contact = form.save(commit=False)
+            contact.user = request.user
+            contact.save()
+            return redirect(to="contactsapp:detail_contact", contact_id=contact_id)
     else:
         form = ContactForm(instance=contact)
-    return render(request, 'contactsapp/update_contact.html', context={'form': form, 'contact': contact})
+    return render(request, 'contactsapp/update_contact.html',
+                  context={'form': form, 'contact': contact})
+
+
+@login_required
+def detail_contact(request, contact_id):
+    contact = get_object_or_404(Contact, pk=contact_id)
+    return render(request, 'contactsapp/detail_contact.html', context={'contact': contact})
 
 
 @login_required
@@ -42,27 +76,6 @@ def delete_contact(request, contact_id):
         contact.delete()
         return redirect(to='usersapp:main')
     return render(request, 'contactsapp/delete_contact.html', context={'contact': contact})
-
-
-@login_required
-def search_contact(request):
-    search_query = request.GET.get('search_query', '')
-    user_contacts = Contact.objects.filter(user=request.user)
-    search_results = user_contacts.filter(
-        models.Q(first_name__icontains=search_query) |
-        models.Q(last_name__icontains=search_query) |
-        models.Q(address__icontains=search_query) |
-        models.Q(phone_number__icontains=search_query) |
-        models.Q(email__icontains=search_query) |
-        models.Q(birth_date__icontains=search_query)
-    )
-
-    context = {
-        'search_query': search_query,
-        'search_results': search_results
-    }
-
-    return render(request, 'contactsapp/search_contact.html', context)
 
 
 @login_required
@@ -84,13 +97,10 @@ def upcoming_birthdays(request):
 
     else:
         result = []
+    print(result)
     return render(request, 'contactsapp/upcoming_birthdays.html', context={'contacts': result})
 
 
-@login_required
-def detail_contact(request, contact_id):
-    contact = get_object_or_404(Contact, pk=contact_id)
-    return render(request, 'contactsapp/detail_contact.html', context={'contact': contact})
 
 
 # @login_required

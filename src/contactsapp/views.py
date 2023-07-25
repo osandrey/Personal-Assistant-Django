@@ -62,7 +62,7 @@ def search_contact(request):
         'search_results': search_results
     }
 
-    return render(request, 'contactapp/search_contacts.html', context)
+    return render(request, 'contactsapp/search_contact.html', context)
 
 
 @login_required
@@ -88,6 +88,28 @@ def upcoming_birthdays(request):
 
 
 @login_required
-def detail_contact(request):
-    contacts = Contact.objects.filter(user=request.user).order_by('first_name')
-    return render(request, 'contactsapp/detail_contact.html', context={'contacts': contacts})
+def detail_contact(request, contact_id):
+    contact = get_object_or_404(Contact, pk=contact_id)
+    return render(request, 'contactsapp/detail_contact.html', context={'contact': contact})
+
+
+# @login_required
+# def detail_contact(request, contact_id:
+#     # contact = Contact.objects.get(pk=contact_id)
+#     # print(contact.first_name)
+#     return render(request, 'contactsapp/detail_contact.html', context={'contact': contact})
+
+# class CitizenSendEmail(CitizenObjectMixin, View):
+#     template_name = 'clients/send_email.html' # DetailView
+#     def get(self, request, id=None, *args, **kwargs):
+#         # GET method
+#         print('I am get method')
+#         context = {}
+#         obj = self.get_object()
+#         form = SendEmailForm()
+#         if obj is not None:
+#             context['object'] = obj
+#
+#         return render(request, self.template_name, context={"form": form,"object": obj})
+#
+#     def post(self, request, id=None,  *args,

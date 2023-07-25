@@ -1,1 +1,54 @@
+{% extends "usersapp/base.html" %}
 
+{% block content %}
+<div class="container my-2">
+    <form class="d-flex my-1" method="GET" action="{% url 'notesapp:search_note' %}">
+        <input class="col-6 mx-2" type="text" name="search_query"
+               placeholder="Search by tags">
+        <button class="btn btn-success" type="submit">Search</button>
+    </form>
+    {% if search_query %}
+    <h4 class="text-center">Search Results for "{{ search_query }}"</h4>
+        {% if search_results %}
+        <div class="container my-2">
+<div class="container m-10">
+    <div class="text-center">
+        <div class="scroll-table">
+            <table class="table">
+                <thead>
+                <tr class="tr">
+                    <th scope="col">title</th>
+                    <th scope="col">description</th>
+                    <th scope="col">tags</th>
+
+                </tr>
+                </thead>
+            </table>
+
+            <div class="scroll-table-body">
+                <table class="my-table">
+                    <tbody class="my_tr">
+
+                    {% for note in search_results %}
+                    <tr>
+                        <td><a href="{% url 'notesapp:detail_note' note.id %}">{{note.title}}</a></td>
+                        <td>{{note.description}}</td>
+                        <td>{% for tag in note.tags.all %} {{tag.name}},{% endfor %}</td>
+
+
+
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+        </div>
+        {% else %}
+        <div class="pt-10 text-center fs-4"><u>No note found.</u></div>
+        {% endif %}
+    {% endif %}
+</div>
+{% endblock %}

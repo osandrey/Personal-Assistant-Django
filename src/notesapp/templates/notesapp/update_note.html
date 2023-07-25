@@ -3,7 +3,7 @@
 {% block content %}
 <h4 class="text-center">Update note</h4>
 <div class="container-fluid me-2 pe-3">
-    <form class="container me-2" method="POST" action="{% url 'notesapp:add_note' %}">
+    <form class="container me-2" method="POST" action="{% url 'notesapp:update_note' note.id  %}">
         {% csrf_token %}
         <div style="container me-2">
             <label class="form-label">Update title*:</label>
@@ -14,7 +14,7 @@
             <div class="row col-4">{{form.description}}</div>
         </div>
         <div style="container me-2">
-        <label> Update tags:
+        <label> Update tags*:
             <select name="tags" multiple="multiple" required>
                 {% for tag in tags %}
                 <option value="{{tag.name}}">{{tag.name}}</option>

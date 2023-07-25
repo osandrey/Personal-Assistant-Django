@@ -9,7 +9,7 @@ urlpatterns = [
     path('update_contact/<int:contact_id>', views.update_contact, name='update_contact'),
     path('delete_contact/<int:contact_id>', views.delete_contact, name='delete_contact'),
     path('search_contact/', views.search_contact, name='search_contact'),
-    # path('upcoming_birthdays/', views.upcoming_birthdays, name='upcoming_birthdays'),
+    path('upcoming_birthdays/', views.upcoming_birthdays, name='upcoming_birthdays'),
     path('detail_contact/<int:contact_id>', views.detail_contact, name="detail_contact"),
     # path('send_email/<int:id>/',  views.send_email, name='send_email')
 

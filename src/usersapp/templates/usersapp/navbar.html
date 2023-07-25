@@ -20,8 +20,9 @@
                 <li role="list" dir="rtl">
                     <a href="#" aria-haspopup="listbox" role="button">Contact</a>
                     <ul role="listbox">
-                        <li role="button"><a href="{% url 'contactsapp:add_contact' %}">Add contact</a></li>
                         <li role="button"><a href="{% url 'contactsapp:search_contact' %}">Search contact</a></li>
+                        <li role="button"><a href="{% url 'contactsapp:add_contact' %}">Add contact</a></li>
+                        <li role="button"><a href="{% url 'contactsapp:upcoming_birthdays' %}">Upcoming birthdays</a></li>
                     </ul>
                 </li>
             </ul>
@@ -29,9 +30,10 @@
                 <li role="list" dir="rtl">
                     <a href="#" aria-haspopup="listbox" role="button">Note</a>
                     <ul role="listbox">
+                        <li role="button"><a href="{% url 'notesapp:search_note' %}">Search note</a></li>
                         <li role="button"><a href="{% url 'notesapp:add_tag' %}">Add tag</a></li>
                         <li role="button"><a href="{% url 'notesapp:add_note' %}">Add note</a></li>
-                        <li role="button"><a href="{% url 'notesapp:search_note' %}">Search note</a></li>
+
                     </ul>
                 </li>
             </ul>

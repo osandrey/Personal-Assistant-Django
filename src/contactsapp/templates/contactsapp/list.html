@@ -94,6 +94,8 @@
                         <td>{{contact.status}}</td>
                         <td>{{contact.sex}}</td>
                         <td>
+                          {% set info=contact.first_name|contact.last_name %}
+                            {% with query=info %}
                             <div class="small text-center button-container">
                                 <a href="{% url 'ai_chat_bot:redirect_check' query=contact.id  %}" class="text-center"><i>Virtual
                                     Contact Chat</i></a>

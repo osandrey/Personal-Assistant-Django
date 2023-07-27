@@ -11,4 +11,6 @@ urlpatterns = [
     path('search_contact/<int:contact_id>', views.search_contact, name='search_contact'),
     path('upcoming_birthdays/', views.upcoming_birthdays, name='upcoming_birthdays'),
     path('detail_contact/<int:contact_id>', views.detail_contact, name="detail_contact"),
+    path('list/', views.list, name='list')
+
 ]

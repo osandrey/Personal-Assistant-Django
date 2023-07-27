@@ -1,0 +1,17 @@
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Dropbox Files</title>
+</head>
+<body>
+    <h1>All Folders in Dropbox</h1>
+    <ul>
+        {% for folder in folders %}
+            <li><a href ="{% url 'cloud_storageapp:folder_files' folder_path=folder.path_display %}">{{ folder.name }}</a></li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

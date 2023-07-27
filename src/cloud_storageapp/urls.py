@@ -13,5 +13,4 @@ urlpatterns = [
     path('dropbox-folders/<path:folder_path>/', views.folder_files, name='folder_files'),
     path('download-file/<path:file_path>/', views.download_file, name='download_file'),
 
-
 ]

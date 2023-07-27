@@ -121,7 +121,7 @@ def download_file(request, file_path):
     print(f'FILE PASSSSSSSSSS    {file_full_path}')
     access_token = DROPBOX_OAUTH2_REFRESH_TOKEN
     dbx = dropbox.Dropbox(access_token)
-
+    # file = request.FILES['file']
     try:
         metadata, response = dbx.files_download(file_full_path)
 

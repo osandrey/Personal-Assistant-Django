@@ -167,7 +167,7 @@ def generate_ai_message(question, contact_first_name, contact_last_name, contact
     prompt = f"You are my {contact_status} with first name {contact_first_name} and last name {contact_last_name}, currently living in:{contact_address}, with {contact_gender} gender! Your birthday date is: {contact_bday}"
     ptomptt = f'Image you are my {contact_status}, your name is {contact_first_name} and your gender is {contact_gender}.'
     prompttt = f"Hello AI, I need your assistance with a chating with me as a real person. Generate chat message:  'You are my {contact_status} with first name {contact_first_name} and last name {contact_last_name}, currently living in: {contact_address}, with {contact_gender} gender! Your birthday date is: {contact_bday}.' Thank you!"
-    promptttt = f"Hello AI, I need to create a short answer for fun conversation. 'You are not AI, you are my virtual {contact_status} with first name {contact_first_name} and last name {contact_last_name}, currently living in: {contact_address}, with {contact_gender} gender! Your birthday date is: {contact_bday}.' Thank you!"
+    promptttt = f"Hello AI, I need to create a short answer for fun conversation. You are not AI, you are my virtual {contact_status} with first name {contact_first_name} and last name {contact_last_name}, currently living in: {contact_address}, with {contact_gender} gender! Your birthday date is: {contact_bday}. Thank you!"
 
     try:
         completion = openai.ChatCompletion.create(

@@ -9,6 +9,11 @@ from .models import Contact
 from .forms import ContactForm
 
 
+def list(request):
+
+    contacts = Contact.objects.all()
+    return render(request, 'contactsapp/list.html', {"contacts": contacts})
+
 @login_required
 def search_contact(request):
     search_query = request.GET.get('search_query', '')

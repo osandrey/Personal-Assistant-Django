@@ -13,25 +13,28 @@ from personal_assistant.settings import RECIPIENTS_EMAIL, DEFAULT_FROM_EMAIL
 
 @login_required
 def search_contact(request):
-    search_query = request.GET.get('search_query', '')
+    search_query_contact = request.GET.get('search_query', '')
     user_contacts = Contact.objects.filter(user=request.user)
-    search_results = user_contacts.filter(
-        models.Q(first_name__icontains=search_query) |
-        models.Q(last_name__icontains=search_query) |
-        models.Q(address__icontains=search_query) |
-        models.Q(phone_number__icontains=search_query) |
-        models.Q(email__icontains=search_query) |
-        models.Q(birth_date__icontains=search_query)
+    search_results_contact = user_contacts.filter(
+        models.Q(first_name__icontains=search_query_contact) |
+        models.Q(last_name__icontains=search_query_contact) |
+        models.Q(address__icontains=search_query_contact) |
+        models.Q(phone_number__icontains=search_query_contact) |
+        models.Q(email__icontains=search_query_contact) |
+        models.Q(birth_date__icontains=search_query_contact)
     )
-    if search_query == ' ' or search_query == 'all':
-        all_results = Contact.objects.all()
-        return render(request, 'contactsapp/search_contact.html', {'all_results': all_results, 'search_query': search_query})
+    if search_query_contact == ' ' or search_query_contact == 'all':
+        all_results_contact = Contact.objects.all()
+        context = {
+            'all_results_contact': all_results_contact,
+            'search_query_contact': search_query_contact
+        }
+        return render(request, 'contactsapp/search_contact.html', context)
     else:
         context = {
-            'search_query': search_query,
-            'search_results': search_results
+            'search_query_contact': search_query_contact,
+            'search_results_contact': search_results_contact
         }
-
         return render(request, 'contactsapp/search_contact.html', context)
 
 

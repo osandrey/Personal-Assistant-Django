@@ -10,26 +10,25 @@
                         <table class="table">
                             <thead>
                             <tr class="tr">
+                                <th scope="col">tag</th>
                                 <th scope="col">title</th>
                                 <th scope="col">description</th>
-                                <th scope="col">tags</th>
                             </tr>
                             </thead>
                         </table>
                         <div class="scroll-table-body">
                             <table class="my-table">
                                 <tbody class="my_tr">
-
-                                {% for note in notes %}
                                 <tr>
+                                    <td>{% for tag in note.tags.all %}
+                                        <a href="{% url 'notesapp:tag_sort' tag.id %}">{{tag.name}}</a>
+                                    </td>
+                                    {% endfor %}
+                                    {% for note in notes %}
                                     <td><a href="{% url 'notesapp:detail_note' note.id %}">{{note.title}}</a></td>
                                     <td>{{note.description}}</td>
-                                    <td>{% for tag in note.tags.all %}
-                                        <a href="{% url 'notesapp:tag_search' tag.id %}">{{tag.name}}, </a>
-                                        {% endfor %}
-                                    </td>
+                                     {% endfor %}
                                 </tr>
-                                {% endfor %}
                                 </tbody>
                             </table>
                         </div>

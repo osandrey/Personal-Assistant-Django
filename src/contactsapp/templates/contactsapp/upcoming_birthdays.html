@@ -1,8 +1,9 @@
 {% extends "usersapp/base.html" %}
 
 {% block content %}
-<div class="pt-10 text-center fs-4">Upcoming Birthdays</div>
+
 <div class="container my-2">
+    <h4 class="text-center">Upcoming Birthdays</h4>
     <form class="form-control" method="POST" action="{% url 'contactsapp:upcoming_birthdays' %}">
         {% csrf_token %}
         <div class="d-flex my-1">

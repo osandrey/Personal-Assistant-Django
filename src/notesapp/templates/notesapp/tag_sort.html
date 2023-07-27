@@ -1,0 +1,39 @@
+{% extends "usersapp/base.html" %}
+
+{% block content %}
+
+        <div class="container my-2">
+            <h4 class="text-center">Search results for Tag</h4>
+            <div class="container m-10">
+                <div class="text-center">
+                    <div class="scroll-table">
+                        <table class="table">
+                            <thead>
+                            <tr class="tr">
+                                <th scope="col">tag</th>
+                                <th scope="col">title</th>
+                                <th scope="col">description</th>
+                            </tr>
+                            </thead>
+                        </table>
+                        <div class="scroll-table-body">
+                            <table class="my-table">
+                                <tbody class="my_tr">
+                                <tr>
+                                    <td>{% for tag in note.tags.all %}
+                                        <a href="{% url 'notesapp:tag_sort' tag.id %}">{{tag.name}}</a>
+                                    </td>
+                                    {% endfor %}
+                                    {% for note in notes %}
+                                    <td><a href="{% url 'notesapp:detail_note' note.id %}">{{note.title}}</a></td>
+                                    <td>{{note.description}}</td>
+                                     {% endfor %}
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+{% endblock %}

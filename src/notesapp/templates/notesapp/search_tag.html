@@ -1,0 +1,74 @@
+{% extends "usersapp/base.html" %}
+
+{% block content %}
+
+<div class="container my-2">
+<!--    <h4 class="text-center">Search by Contact ('all' or space to display all tag)</h4>-->
+        <form class="d-flex" role="search" method="GET" action="{% url 'notesapp:search_tag' %}">
+            <input class="form-control me-2" name="search_query" type="search" placeholder="Search by Tag ('all' or space to display all tags)" aria-label="Search">
+            <button class="btn btn-outline-success" type="submit" class="btn btn-warning" style="padding: 5px 10px;">Search
+        </button>
+    </form>
+
+    {% if search_query_tag %}
+        <h4 class="text-center">Search results for "{{ search_query_tag }}"</h4>
+        {% if all_tags %}
+            <div class="container my-2">
+                <div class="container m-10">
+                    <div class="text-center">
+                        <div class="scroll-table">
+                            <table class="table">
+                                <thead>
+                                    <tr class="tr">
+                                    <th scope="col">tag</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                        <div class="scroll-table-body">
+                            <table class="my-table">
+                                <tbody class="my_tr">
+                                {% for tag in all_tags %}
+                                <tr>
+                                    <td><a href="{% url 'notesapp:detail_tag' tag.id %}">{{tag.name}}</a></td>
+                                </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+        {% if search_results_tag %}
+            <div class="container my-2">
+                <div class="container m-10">
+                    <div class="text-center">
+                        <div class="scroll-table">
+                            <table class="table">
+                                <thead>
+                                    <tr class="tr">
+                                        <th scope="col">tag</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                            <div class="scroll-table-body">
+                                <table class="my-table">
+                                    <tbody class="my_tr">
+                                {% for tag in all_tags %}
+                                <tr>
+                                    <td><a href="{% url 'notesapp:detail_tag' tag.id %}">{{tag.name}}</a></td>
+                                </tr>
+                                {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% else %}
+        {% endif %}
+    {% endif %}
+</div>
+{% endblock %}

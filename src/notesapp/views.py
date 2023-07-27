@@ -33,7 +33,7 @@ def add_tag(request):
             tag = form.save(commit=False)
             tag.user = request.user
             tag.save()
-            return redirect(to='usersapp:main')
+            return redirect(to='usersapp:success')
         else:
             return render(request, 'notesapp/add_tag.html', context={'form': form})
 
@@ -52,7 +52,7 @@ def add_note(request):
             choice_tags = Tag.objects.filter(name__in=request.POST.getlist('tags'), user=request.user)
             for tag in choice_tags:
                 note.tags.add(tag)
-            return redirect(to='usersapp:main')
+            return redirect(to='usersapp:success')
         else:
             return render(request, 'notesapp/add_note.html', context={'form': form, 'tags': tags})
 
@@ -91,5 +91,12 @@ def delete_note(request, note_id):
     note = get_object_or_404(Note, pk=note_id, user=request.user)
     if request.method == 'POST':
         note.delete()
-        return redirect(to='usersapp:main')
+        return redirect(to='usersapp:success')
     return render(request, 'notesapp/delete_note.html', {'note': note})
+
+
+def tag_search(request, tag_id):
+    tags = Tag.objects.filter(id=tag_id).first()
+    notes = Note.objects.filter(tags=tag_id).all()
+    return render(request, 'notesapp/tag_search.html', {'notes': notes, 'tags': tags})
+

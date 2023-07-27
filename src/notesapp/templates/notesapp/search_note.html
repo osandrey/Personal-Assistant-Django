@@ -2,9 +2,10 @@
 
 {% block content %}
 <div class="container my-2">
+    <h4 class="text-center">Search by Title ('all' or space to display all notes)</h4>
     <form class="d-flex my-1" method="GET" action="{% url 'notesapp:search_note' %}">
         <input class="col-6 mx-2" type="text" name="search_query"
-               placeholder="Search by title ('all' or space to display all notes)">
+               placeholder="Search by Title ('all' or space to display all notes)">
         <button class="btn btn-success" type="submit">Search</button>
     </form>
 
@@ -29,11 +30,15 @@
                         <table class="my-table">
                             <tbody class="my_tr">
 
-                            {% for note in all_results %}
+                            {% for note in all_results%}
                             <tr>
                                 <td><a href="{% url 'notesapp:detail_note' note.id %}">{{note.title}}</a></td>
                                 <td>{{note.description}}</td>
-                                <td>{% for tag in note.tags.all %} {{tag.name}},{% endfor %}</td>
+                                <td>
+                                    {% for tag in note.tags.all %}
+                                    <a href="{% url 'notesapp:tag_search' tag.id %}">{{tag.name}}, </a>
+                                    {% endfor %}
+                                </td>
 
                             </tr>
                             {% endfor %}
@@ -69,7 +74,11 @@
                                 <tr>
                                     <td><a href="{% url 'notesapp:detail_note' note.id %}">{{note.title}}</a></td>
                                     <td>{{note.description}}</td>
-                                    <td>{% for tag in note.tags.all %} {{tag.name}},{% endfor %}</td>
+                                    <td>
+                                        {% for tag in note.tags.all %}
+                                        <a href="{% url 'notesapp:tag_search' tag.id %}">{{tag.name}}, </a>
+                                        {% endfor %}
+                                    </td>
                                 </tr>
                                 {% endfor %}
                                 </tbody>

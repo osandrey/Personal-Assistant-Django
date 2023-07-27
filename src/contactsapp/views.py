@@ -1,12 +1,14 @@
 from datetime import date, timedelta
 from django.shortcuts import render
 from django.utils import timezone
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404, HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.db import models
-
+from django.core.mail import BadHeaderError, send_mail
+from django.http import HttpResponse
 from .models import Contact
-from .forms import ContactForm
+from .forms import ContactForm, SendEmailForm
+from personal_assistant.settings import RECIPIENTS_EMAIL, DEFAULT_FROM_EMAIL
 
 
 @login_required
@@ -41,7 +43,7 @@ def add_contact(request):
             contact = form.save(commit=False)
             contact.user = request.user
             contact.save()
-            return redirect(to='usersapp:main')
+            return redirect(to='usersapp:success')
     else:
         form = ContactForm()
     return render(request, 'contactsapp/add_contact.html', context={'form': form})
@@ -65,7 +67,7 @@ def update_contact(request, contact_id):
 
 @login_required
 def detail_contact(request, contact_id):
-    contact = get_object_or_404(Contact, pk=contact_id)
+    contact = get_object_or_404(Contact, pk=contact_id, user=request.user)
     return render(request, 'contactsapp/detail_contact.html', context={'contact': contact})
 
 
@@ -74,7 +76,7 @@ def delete_contact(request, contact_id):
     contact = get_object_or_404(Contact, pk=contact_id, user=request.user)
     if request.method == 'POST':
         contact.delete()
-        return redirect(to='usersapp:main')
+        return redirect(to='usersapp:success')
     return render(request, 'contactsapp/delete_contact.html', context={'contact': contact})
 
 
@@ -101,25 +103,24 @@ def upcoming_birthdays(request):
     return render(request, 'contactsapp/upcoming_birthdays.html', context={'contacts': result})
 
 
-
-
-# @login_required
-# def detail_contact(request, contact_id:
-#     # contact = Contact.objects.get(pk=contact_id)
-#     # print(contact.first_name)
-#     return render(request, 'contactsapp/detail_contact.html', context={'contact': contact})
-
-# class CitizenSendEmail(CitizenObjectMixin, View):
-#     template_name = 'clients/send_email.html' # DetailView
-#     def get(self, request, id=None, *args, **kwargs):
-#         # GET method
-#         print('I am get method')
-#         context = {}
-#         obj = self.get_object()
-#         form = SendEmailForm()
-#         if obj is not None:
-#             context['object'] = obj
-#
-#         return render(request, self.template_name, context={"form": form,"object": obj})
-#
-#     def post(self, request, id=None,  *args,
+@login_required
+def send_email_contact(request, contact_id):
+    contact = get_object_or_404(Contact, pk=contact_id, user=request.user)
+    contact_email = contact.email
+    if request.method == 'POST':
+        form = SendEmailForm(request.POST)
+        if form.is_valid():
+            subject = form.cleaned_data['subject']
+            print(subject)
+            message = form.cleaned_data['message']
+            print(message)
+            from_email = contact_email
+            print(from_email)
+            try:
+                send_mail(f'{subject} от {from_email}', message, DEFAULT_FROM_EMAIL, RECIPIENTS_EMAIL)
+            except BadHeaderError:
+                return HttpResponse('Invalid header found.')
+            return redirect(to="contactsapp:detail_contact", contact_id=contact_id)
+        else:
+            return HttpResponse('Make sure all fields are entered and valid.')
+    return render(request, 'contactsapp/send_email_contact.html', {'form': SendEmailForm(request.POST), 'contact': contact})

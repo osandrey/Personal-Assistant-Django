@@ -17,25 +17,10 @@ class ContactForm(forms.ModelForm):
         fields = ['first_name', 'last_name', 'address', 'phone_number', 'email',  'address',  'birth_date', 'sex', 'status']
 
 
-class SendEmailForm(forms.ModelForm):
-
-    coppy_to = forms.CharField(max_length=100,
-                                required=True,
-                                widget=forms.TextInput(attrs={'class': 'form-control'}))
-
-    theme = forms.CharField(max_length=200,
-                               required=True,
-                               widget=forms.TextInput(attrs={'class': 'form-control'}))
-
-    text = forms.CharField(max_length=2400,
-                           required=True,
-                           widget=forms.TextInput(attrs={'class': 'form-control'}))
-
-    attachment = forms.FileField(
-        required=False,
-        widget=forms.ClearableFileInput(attrs={'class': 'form-select'})
-    )
+class SendEmailForm(forms.Form):
+    subject = forms.CharField(max_length=100)
+    message = forms.CharField(widget=forms.Textarea)
 
     class Meta:
         model = Contact
-        fields = ['coppy_to', 'theme', 'text', 'attachment']
+        fields = ['subject', 'message']

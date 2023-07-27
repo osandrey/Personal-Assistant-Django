@@ -11,6 +11,11 @@ from .forms import ContactForm, SendEmailForm
 from personal_assistant.settings import RECIPIENTS_EMAIL, DEFAULT_FROM_EMAIL
 
 
+def list(request):
+
+    contacts = Contact.objects.all()
+    return render(request, 'contactsapp/list.html', {"contacts": contacts})
+
 @login_required
 def search_contact(request):
     search_query_contact = request.GET.get('search_query', '')

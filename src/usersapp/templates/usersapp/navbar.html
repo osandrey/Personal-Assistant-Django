@@ -65,6 +65,7 @@
                 </li>
             </ul>
 
+
             {% if user.is_authenticated %}
             <div class="d-flex justify-content-center">
                 <a href="{% url 'usersapp:logout_user' %}?next={% url 'usersapp:login_user' %}"

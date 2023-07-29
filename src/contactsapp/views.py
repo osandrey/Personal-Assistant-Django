@@ -134,7 +134,7 @@ def send_email(self, request, obj):
             # File upload handling logic
 
             attachment_file: InMemoryUploadedFile = form.cleaned_data['attachment']
-            file_path = self.handle_uploaded_file(attachment_file)
+            file_path = handle_uploaded_file(attachment_file)
             # Process the file as needed
             print('I am in sending email form is OK!')
             print(form.cleaned_data)
@@ -160,6 +160,21 @@ class ContactObjectMixin(object):
         return self.kwargs.get("id")
 
 
+def handle_uploaded_file(file: InMemoryUploadedFile):
+    file_name = file.name
+    upload_folder_path = "uploads/"
+    if not os.path.exists(upload_folder_path):
+        os.mkdir(upload_folder_path)
+
+    file_path = upload_folder_path + file_name
+
+    file_contents = file.read()
+
+    with open(file_path, 'wb') as destination:
+        destination.write(file_contents)
+    return file_path
+
+
 class ContactSendEmail(ContactObjectMixin, View):
     template_name = 'contactsapp/send_email.html'  # DetailView
 
@@ -182,25 +197,8 @@ class ContactSendEmail(ContactObjectMixin, View):
         if obj is not None:
             self.send_email(request, obj)
             context['object'] = None
-            return redirect('/contactsapp/')
+            return redirect(to='usersapp:success')
         return render(request, self.template_name, context)
-
-    def handle_uploaded_file(self, file: InMemoryUploadedFile):
-        # Generate a unique file name
-        file_name = file.name
-        upload_folder_path = "uploads/"
-        if not os.path.exists(upload_folder_path):
-            os.mkdir(upload_folder_path)
-
-        file_path = upload_folder_path + file_name
-
-        # Read the file contents
-        file_contents = file.read()
-
-        # Save the file to disk
-        with open(file_path, 'wb') as destination:
-            destination.write(file_contents)
-        return file_path
 
     def send_email(self, request, obj):
         if request.method == 'POST':
@@ -210,7 +208,7 @@ class ContactSendEmail(ContactObjectMixin, View):
                 # File upload handling logic
 
                 attachment_file: InMemoryUploadedFile = form.cleaned_data['attachment']
-                file_path = self.handle_uploaded_file(attachment_file)
+                file_path = handle_uploaded_file(attachment_file)
                 # Process the file as needed
                 print('I am in sending email form is OK!')
                 print(form.cleaned_data)

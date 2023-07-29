@@ -12,5 +12,4 @@ urlpatterns = [
     path('upcoming_birthdays/', views.upcoming_birthdays, name='upcoming_birthdays'),
     path('detail_contact/<int:contact_id>', views.detail_contact, name="detail_contact"),
     path('<int:id>/email/',  ContactSendEmail.as_view(), name='send_email')
-
 ]

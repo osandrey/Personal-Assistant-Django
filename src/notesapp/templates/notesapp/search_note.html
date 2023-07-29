@@ -38,7 +38,7 @@
                                 <td>{{note.description}}</td>
                                 <td>
                                     {% for tag in note.tags.all %}
-                                    <a href="{% url 'notesapp:tag_sort' tag.id %}">{{tag.name}}, </a>
+                                    <a href="{% url 'notesapp:detail_tag' tag.id %}">{{tag.name}}, </a>
                                     {% endfor %}
                                 </td>
                             </tr>
@@ -77,7 +77,7 @@
                                     <td>{{note.description}}</td>
                                     <td>
                                         {% for tag in note.tags.all %}
-                                        <a href="{% url 'notesapp:tag_sort' tag.id %}">{{tag.name}}, </a>
+                                        <a href="{% url 'notesapp:detail_tag' tag.id %}">{{tag.name}}, </a>
                                         {% endfor %}
                                     </td>
                                 </tr>

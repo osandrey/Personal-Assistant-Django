@@ -1,6 +1,6 @@
 from django.urls import path
 from . import views
-
+from .views import ContactSendEmail
 
 app_name = 'contactsapp'
 
@@ -11,6 +11,6 @@ urlpatterns = [
     path('search_contact/', views.search_contact, name='search_contact'),
     path('upcoming_birthdays/', views.upcoming_birthdays, name='upcoming_birthdays'),
     path('detail_contact/<int:contact_id>', views.detail_contact, name="detail_contact"),
-    path('send_email_contact/<int:contact_id>/',  views.send_email_contact, name='send_email_contact')
+    path('<int:id>/email/',  ContactSendEmail.as_view(), name='send_email')
 
 ]

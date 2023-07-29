@@ -13,6 +13,4 @@ urlpatterns = [
     path('delete_note/<int:note_id>', views.delete_note, name="delete_note"),
     path('delete_tag/<int:tag_id>', views.delete_tag, name="delete_tag"),
     path('update_note/<int:note_id>', views.update_note, name="update_note"),
-    path('tag_sort/<int:tag_id>', views.tag_sort, name="tag_sort"),
-
 ]

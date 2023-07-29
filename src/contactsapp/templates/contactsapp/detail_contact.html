@@ -19,7 +19,7 @@
                 <div class="d-flex align-items-center">
                     <a class="btn btn-warning mx-2"  href="{% url 'contactsapp:update_contact' contact.id %}">Update Contact</a>
                     <a class="btn btn-danger mx-2"  href="{% url 'contactsapp:delete_contact' contact.id %}">Delete</a>
-                    <a class="btn btn-primary mx-2"  href="{% url 'contactsapp:send_email_contact' contact.id %}">Send email</a>
+                    <a class="btn btn-primary mx-2"  href="{% url 'contactsapp:send_email' contact.id %}">Send email</a>
                 </div>
             </div>
         </div>

@@ -32,21 +32,18 @@ def search_tag(request):
     search_query_tag = request.GET.get('search_query', '')
     user_tags = Tag.objects.filter(user=request.user)
     search_results_tag = user_tags.filter(name__icontains=search_query_tag)
-    user_notes = Note.objects.filter(user=request.user)
     if search_query_tag == ' ' or search_query_tag == 'all':
         all_tags = Tag.objects.all()
         context = {
             'search_query_tag': search_query_tag,
-            'all_tags': all_tags,
-            'user_notes': user_notes,
+            'all_tags': all_tags
         }
         return render(request, 'notesapp/search_tag.html', context)
 
     else:
         context = {
             'search_query_tag': search_query_tag,
-            'search_results_tag': search_results_tag,
-            'user_notes': user_notes,
+            'search_results_tag': search_results_tag
         }
 
         return render(request, 'notesapp/search_tag.html', context)
@@ -116,8 +113,9 @@ def detail_note(request, note_id):
 
 @login_required
 def detail_tag(request, tag_id):
-    tag = get_object_or_404(Tag, pk=tag_id, user=request.user)
-    return render(request, 'notesapp/detail_tag.html', context={"tag": tag})
+    tag = Tag.objects.filter(id=tag_id).first()
+    notes = Note.objects.filter(tags=tag_id).all()
+    return render(request, 'notesapp/detail_tag.html', context={"tag": tag, "notes": notes})
 
 
 @login_required
@@ -131,7 +129,7 @@ def delete_note(request, note_id):
 
 @login_required
 def delete_tag(request, tag_id):
-    tag = get_object_or_404(Note, pk=tag_id, user=request.user)
+    tag = get_object_or_404(Tag, pk=tag_id, user=request.user)
     if request.method == 'POST':
         tag.delete()
         return redirect(to='usersapp:success')

@@ -4,17 +4,31 @@ from django.utils import timezone
 from django.shortcuts import render, redirect, get_object_or_404, HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.db import models
-from django.core.mail import BadHeaderError, send_mail
 from django.http import HttpResponse
 from .models import Contact
-from .forms import ContactForm, SendEmailForm
-from personal_assistant.settings import RECIPIENTS_EMAIL, DEFAULT_FROM_EMAIL
 
+from .forms import SendEmailForm, ContactForm
+from .models import Contact
+from dotenv import dotenv_values
+import os
+import smtplib
+import ssl
+from email.mime.base import MIMEBase
+from email.mime.image import MIMEImage
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
 
-def list(request):
+from django.core.files.uploadedfile import InMemoryUploadedFile
+from django.core.mail import EmailMessage
+from django.core.paginator import Paginator
+from django.shortcuts import render, redirect, get_object_or_404
+from django.db.models import Q
+from django.views import View
 
-    contacts = Contact.objects.all()
-    return render(request, 'contactsapp/list.html', {"contacts": contacts})
+CONFIG = dotenv_values('.env')
+MetaLogin = CONFIG.get("EMAIL_HOST_USER")
+MetaPassword = CONFIG.get("EMAIL_HOST_PASSWORD")
+
 
 @login_required
 def search_contact(request):
@@ -112,23 +126,114 @@ def upcoming_birthdays(request):
 
 
 @login_required
-def send_email_contact(request, contact_id):
-    contact = get_object_or_404(Contact, pk=contact_id, user=request.user)
-    contact_email = contact.email
+def send_email(self, request, obj):
     if request.method == 'POST':
-        form = SendEmailForm(request.POST)
+        print('I am in send email POST method!')
+        form = SendEmailForm(request.POST, request.FILES)
         if form.is_valid():
-            subject = form.cleaned_data['subject']
-            print(subject)
-            message = form.cleaned_data['message']
-            print(message)
-            from_email = contact_email
-            print(from_email)
-            try:
-                send_mail(f'{subject} от {from_email}', message, DEFAULT_FROM_EMAIL, RECIPIENTS_EMAIL)
-            except BadHeaderError:
-                return HttpResponse('Invalid header found.')
-            return redirect(to="contactsapp:detail_contact", contact_id=contact_id)
+            # File upload handling logic
+
+            attachment_file: InMemoryUploadedFile = form.cleaned_data['attachment']
+            file_path = self.handle_uploaded_file(attachment_file)
+            # Process the file as needed
+            print('I am in sending email form is OK!')
+            print(form.cleaned_data)
+
+            run_send_email(obj, form.cleaned_data, file_path)
+            return render(request, 'usersapp/success.html')
+    else:
+        form = SendEmailForm()
+    return render(request, 'contactsapp/send_email.html', {'form': form})
+
+
+class ContactObjectMixin(object):
+    model = Contact
+
+    def get_object(self):
+        _id = self.kwargs.get('id')
+        obj = None
+        if _id is not None:
+            obj = get_object_or_404(self.model, pk=_id)
+        return obj
+
+    def get_id(self):
+        return self.kwargs.get("id")
+
+
+class ContactSendEmail(ContactObjectMixin, View):
+    template_name = 'contactsapp/send_email.html'  # DetailView
+
+    def get(self, request, _id=None, *args, **kwargs):
+        # GET method
+        print('I am get method')
+        context = {}
+        obj = self.get_object()
+        form = SendEmailForm()
+        if obj is not None:
+            context['object'] = obj
+
+        return render(request, self.template_name, context={"form": form, "object": obj})
+
+    def post(self, request, id=None, *args, **kwargs):
+        # POST method
+        print('I am post method')
+        context = {}
+        obj = self.get_object()
+        if obj is not None:
+            self.send_email(request, obj)
+            context['object'] = None
+            return redirect('/contactsapp/')
+        return render(request, self.template_name, context)
+
+    def handle_uploaded_file(self, file: InMemoryUploadedFile):
+        # Generate a unique file name
+        file_name = file.name
+        upload_folder_path = "uploads/"
+        if not os.path.exists(upload_folder_path):
+            os.mkdir(upload_folder_path)
+
+        file_path = upload_folder_path + file_name
+
+        # Read the file contents
+        file_contents = file.read()
+
+        # Save the file to disk
+        with open(file_path, 'wb') as destination:
+            destination.write(file_contents)
+        return file_path
+
+    def send_email(self, request, obj):
+        if request.method == 'POST':
+            print('I am in send email POST method!')
+            form = SendEmailForm(request.POST, request.FILES)
+            if form.is_valid():
+                # File upload handling logic
+
+                attachment_file: InMemoryUploadedFile = form.cleaned_data['attachment']
+                file_path = self.handle_uploaded_file(attachment_file)
+                # Process the file as needed
+                print('I am in sending email form is OK!')
+                print(form.cleaned_data)
+
+                run_send_email(obj, form.cleaned_data, file_path)
+                return render(request, 'usersapp/success.html')
         else:
-            return HttpResponse('Make sure all fields are entered and valid.')
-    return render(request, 'contactsapp/send_email_contact.html', {'form': SendEmailForm(request.POST), 'contact': contact})
+            form = SendEmailForm()
+        return render(request, 'contactsapp/send_email.html', {'form': form})
+
+
+def run_send_email(obj: Contact, data: dict, file_path: str):
+    user_name = obj.first_name + " " + obj.last_name
+    print(user_name)
+    Sender = MetaLogin
+    Sender_password = MetaPassword
+    receiver_email = obj.email
+    print(receiver_email)
+    subject = f"Subject: Greetings, dear {user_name}, {data['theme']}"
+    message = data['text']
+    attachment_name = os.path.basename(file_path)
+    with open(file_path, 'rb') as attachment:
+        mail = EmailMessage(subject=subject, body=message, from_email=Sender, to=[receiver_email],
+                            cc=[data.get('coppy_to')])
+        mail.attach(attachment_name, attachment.read(), data.get('attachment').content_type)
+        mail.send()

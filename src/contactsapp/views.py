@@ -161,15 +161,18 @@ class ContactObjectMixin(object):
 
 
 def handle_uploaded_file(file: InMemoryUploadedFile):
-    file_name = file.name
-    upload_folder_path = "uploads/"
-    if not os.path.exists(upload_folder_path):
-        os.mkdir(upload_folder_path)
-    file_path = upload_folder_path + file_name
-    file_contents = file.read()
-    with open(file_path, 'wb') as destination:
-        destination.write(file_contents)
-    return file_path
+    try:
+        file_name = file.name
+        upload_folder_path = "uploads/"
+        if not os.path.exists(upload_folder_path):
+            os.mkdir(upload_folder_path)
+        file_path = upload_folder_path + file_name
+        file_contents = file.read()
+        with open(file_path, 'wb') as destination:
+            destination.write(file_contents)
+        return file_path
+    except AttributeError:
+        return None
 
 
 class ContactSendEmail(ContactObjectMixin, View):
@@ -194,7 +197,18 @@ class ContactSendEmail(ContactObjectMixin, View):
         return render(request, self.template_name, context)
 
 
-def run_send_email(obj: Contact, data: dict, file_path: str):
+def run_send_email(obj: Contact, data: dict):
+    user_name = obj.first_name + " " + obj.last_name
+    Sender = MetaLogin
+    receiver_email = obj.email
+    subject = f"Subject: Greetings, dear {user_name}, {data['theme']}"
+    message = data['text']
+    mail = EmailMessage(subject=subject, body=message, from_email=Sender, to=[receiver_email],
+                        cc=[data.get('coppy_to')])
+    mail.send()
+
+
+def run_send_email_with_file(obj: Contact, data: dict, file_path: str):
     user_name = obj.first_name + " " + obj.last_name
     Sender = MetaLogin
     receiver_email = obj.email
@@ -214,9 +228,12 @@ def send_email(request, obj):
         if form.is_valid():
             attachment_file: InMemoryUploadedFile = form.cleaned_data['attachment']
             file_path = handle_uploaded_file(attachment_file)
-            run_send_email(obj, form.cleaned_data, file_path)
-            return render(request, 'usersapp/success.html')
-
+            if file_path:
+                run_send_email_with_file(obj, form.cleaned_data, file_path)
+                return render(request, 'usersapp/success.html')
+            else:
+                run_send_email(obj, form.cleaned_data)
+                return render(request, 'usersapp/success.html')
     else:
         form = SendEmailForm()
     return render(request, 'contactsapp/send_email.html', {'form': form})

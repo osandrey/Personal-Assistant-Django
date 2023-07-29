@@ -26,6 +26,7 @@ urlpatterns = [
     path('bot/', include('ai_chat_bot.urls')),
     path('contacts/', include('contactsapp.urls')),
     path('notes/', include('notesapp.urls')),
+    path('news/', include('newsapp.urls')),
 ]
 
 if settings.DEBUG:

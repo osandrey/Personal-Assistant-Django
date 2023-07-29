@@ -53,7 +53,8 @@ INSTALLED_APPS = [
     'usersapp',
     # 'ai_chat_bot',
     'contactsapp',
-    'notesapp'
+    'notesapp',
+    'newsapp'
 
 ]
 

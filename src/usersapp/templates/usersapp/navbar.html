@@ -57,14 +57,14 @@
 
             <ul>
                 <li role="list" dir="rtl">
-                    <a href="#" aria-haspopup="listbox" role="button">News</a>
-                    <ul role="listbox">
-                        <li role="button"><a href="#">Politic</a></li>
-                        <li role="button"><a href="#">Sport</a></li>
-                    </ul>
+                   <a href="#" aria-haspopup="listbox" role="button">News</a>
+                   <ul role="listbox">
+                    <li role="button"><a href="{% url 'newsapp:read_news' q='war_in_ukraine' %}" id="btn_war_ukraine">War in Ukraine</a></li>
+                    <li role="button"><a href="{% url 'newsapp:read_news' q='business' %}" id="btn_business">Business</a></li>
+                    <li role="button"><a href="{% url 'newsapp:read_news' q='since' %}" id="btn_since">Since</a></li>
+                  </ul>
                 </li>
             </ul>
-
 
             {% if user.is_authenticated %}
             <div class="d-flex justify-content-center">

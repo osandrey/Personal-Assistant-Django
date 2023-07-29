@@ -84,7 +84,7 @@ def add_note(request):
 
 
 @login_required
-def update_note(request, note_id):
+def edit_note(request, note_id):
     note = get_object_or_404(Note, pk=note_id, user=request.user)
     tags = Tag.objects.filter(user=request.user).all()
     if request.method == 'POST':
@@ -101,7 +101,7 @@ def update_note(request, note_id):
             return redirect(to="notesapp:detail_note", note_id=note_id)
     else:
         form = NoteForm(instance=note)
-    return render(request, 'notesapp/update_note.html',
+    return render(request, 'notesapp/edit_note.html',
                   context={'form': form, 'note': note, 'tags': tags})
 
 

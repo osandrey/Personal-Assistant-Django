@@ -9,20 +9,20 @@ import dropbox
 from .forms import FileUploadForm
 
 
-# # Build paths inside the project like this: BASE_DIR / 'subdir'.
-# BASE_DIR = Path(__file__).resolve().parent.parent
-# env = environ.Env()
-#
-# environ.Env.read_env(BASE_DIR / ".env")
-# # print(f'{BASE_DIR} ~~ YOUR BASE_DIR')
-#
-# # /Users/ekaterina/Documents/GitHub/Personal-Assistant-Django
-# Secret_Key = env("SECRET_KEY")
-# # Create your views here.
-#
-# DROPBOX_APP_KEY = env("DROPBOX_APP_KEY")
-# DROPBOX_APP_SECRET = env("DROPBOX_APP_SECRET")
-# DROPBOX_OAUTH2_REFRESH_TOKEN = env("DROPBOX_OAUTH2_REFRESH_TOKEN")
+# Build paths inside the project like this: BASE_DIR / 'subdir'.
+BASE_DIR = Path(__file__).resolve().parent.parent
+env = environ.Env()
+
+environ.Env.read_env(BASE_DIR / ".env")
+# print(f'{BASE_DIR} ~~ YOUR BASE_DIR')
+
+# /Users/ekaterina/Documents/GitHub/Personal-Assistant-Django
+Secret_Key = env("SECRET_KEY")
+# Create your views here.
+
+DROPBOX_APP_KEY = env("DROPBOX_APP_KEY")
+DROPBOX_APP_SECRET = env("DROPBOX_APP_SECRET")
+DROPBOX_OAUTH2_REFRESH_TOKEN = env("DROPBOX_OAUTH2_REFRESH_TOKEN")
 
 
 # def dropbox_oauth(request):

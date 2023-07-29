@@ -72,7 +72,7 @@ def add_contact(request):
 
 
 @login_required
-def update_contact(request, contact_id):
+def edit_contact(request, contact_id):
     contact = get_object_or_404(Contact, pk=contact_id, user=request.user)
     if request.method == 'POST':
         form = ContactForm(request.POST, instance=contact)
@@ -83,7 +83,7 @@ def update_contact(request, contact_id):
             return redirect(to="contactsapp:detail_contact", contact_id=contact_id)
     else:
         form = ContactForm(instance=contact)
-    return render(request, 'contactsapp/update_contact.html',
+    return render(request, 'contactsapp/edit_contact.html',
                   context={'form': form, 'contact': contact})
 
 

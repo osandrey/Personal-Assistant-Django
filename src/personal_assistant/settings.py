@@ -91,28 +91,28 @@ WSGI_APPLICATION = 'personal_assistant.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 """Local PostgreSQL"""
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': env('DATABASE_NAME'),
-        'USER': env('DATABASE_USER'),
-        'PASSWORD': env('DATABASE_PASSWORD'),
-        'HOST': env('DATABASE_HOST'),
-        'PORT': env('DATABASE_PORT'),
-    }
-}
-
-# """Cloud Elephant PostgreSQL"""
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#         'NAME': env('ELEPHANT_DATABASE_NAME'),
-#         'USER': env('ELEPHANT_DATABASE_USER'),
-#         'PASSWORD': env('ELEPHANT_DATABASE_PASSWORD'),
-#         'HOST': env('ELEPHANT_DATABASE_HOST'),
-#         'PORT': env('ELEPHANT_DATABASE_PORT'),
+#         'NAME': env('DATABASE_NAME'),
+#         'USER': env('DATABASE_USER'),
+#         'PASSWORD': env('DATABASE_PASSWORD'),
+#         'HOST': env('DATABASE_HOST'),
+#         'PORT': env('DATABASE_PORT'),
 #     }
 # }
+
+# """Cloud Elephant PostgreSQL"""
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': env('ELEPHANT_DATABASE_NAME'),
+        'USER': env('ELEPHANT_DATABASE_USER'),
+        'PASSWORD': env('ELEPHANT_DATABASE_PASSWORD'),
+        'HOST': env('ELEPHANT_DATABASE_HOST'),
+        'PORT': env('ELEPHANT_DATABASE_PORT'),
+    }
+}
 
 # print(env('DATABASE_NAME'),  env('DATABASE_USER'), env('DATABASE_PASSWORD'), env('DATABASE_HOST'), env('DATABASE_PORT'))
 

@@ -10,7 +10,6 @@ from .forms import ContactForm
 
 
 def list(request):
-
     contacts = Contact.objects.all()
     return render(request, 'contactsapp/list.html', {"contacts": contacts})
 

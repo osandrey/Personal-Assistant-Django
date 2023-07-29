@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     'ai_chat_bot',
     'contactsapp',
     'notesapp',
+    'newsapp'
     'cloud_storageapp',
 
 ]
@@ -162,16 +163,17 @@ print(STATIC_ROOT)
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-"""For Meta UA"""
+# """For Meta UA"""
 # EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 # EMAIL_HOST = env('EMAIL_HOST')
 # EMAIL_PORT = env('EMAIL_PORT')
-# EMAIL_STARTTLS = False
-# EMAIL_USE_SSL = True
-# EMAIL_USE_TLS = False
+# EMAIL_STARTTLS = True
+# # EMAIL_USE_SSL = True
+# # EMAIL_USE_TLS = True
 # EMAIL_HOST_USER = env('EMAIL_HOST_USER')
 # EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
 # DEFAULT_FROM_EMAIL = env('EMAIL_HOST_USER')
+# RECIPIENTS_EMAIL = []
 #
 """For Gmail"""
 

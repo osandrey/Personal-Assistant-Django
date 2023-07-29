@@ -1,20 +1,21 @@
 {% extends "usersapp/base.html" %}
 
 {% block content %}
-<h4 class="text-center">Update note</h4>
+
 <div class="container-fluid me-2 pe-3">
-    <form class="container me-2" method="POST" action="{% url 'notesapp:update_note' note.id  %}">
+    <h4 class="text-center">Edit Note</h4>
+    <form class="container me-2" method="POST" action="{% url 'notesapp:edit_note' note.id  %}">
         {% csrf_token %}
         <div style="container me-2">
-            <label class="form-label">Update title*:</label>
+            <label class="form-label">Edit title*:</label>
             <div class="row col-4">{{form.title}}</div>
         </div>
         <div style="container me-2">
-            <label class="form-label">Update description*:</label>
+            <label class="form-label">Edit description*:</label>
             <div class="row col-4">{{form.description}}</div>
         </div>
         <div style="container me-2">
-        <label> Update tags*:
+        <label> Select tags*:
             <select name="tags" multiple="multiple" required>
                 {% for tag in tags %}
                 <option value="{{tag.name}}">{{tag.name}}</option>

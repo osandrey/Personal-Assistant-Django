@@ -27,6 +27,7 @@ urlpatterns = [
     path('contacts/', include('contactsapp.urls')),
     path('notes/', include('notesapp.urls')),
     path('news/', include('newsapp.urls')),
+    path('cloud_storageapp/', include('cloud_storageapp.urls')),
 ]
 
 if settings.DEBUG:

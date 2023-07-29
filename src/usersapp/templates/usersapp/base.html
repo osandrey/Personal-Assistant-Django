@@ -11,11 +11,15 @@
     <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@latest/css/pico.min.css"/>
      {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'usersapp/css/style.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'usersapp/css/styles.css' %}">
+
+
 
     <title> Django Project! </title>
 </head>
 <body>
+{% if user.is_authenticated %}
+{% include 'usersapp/navbar.html' %}
+{% endif %}
 <section class="vh-100 bg-image"
 
          style="background-image: url('https://mdbcdn.b-cdn.net/img/Photos/new-templates/search-box/img4.webp');">
@@ -26,7 +30,7 @@
 
 {% endblock %}
 
-    </div></section>>
+    </div></section>
 
 </body>
 </html>

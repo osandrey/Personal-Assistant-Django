@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Files in {{ folder_path }}</title>
+</head>
+<body>
+    <h1>Files in {{ folder_path }}</h1>
+    <ul>
+        {% for file in files %}
+            <li><a href="{% url 'cloud_storageapp:download_file' file_path=file.path_display|urlencode %}">{{ file.name }}</a></li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

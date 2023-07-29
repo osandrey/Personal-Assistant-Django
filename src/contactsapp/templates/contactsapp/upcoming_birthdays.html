@@ -1,0 +1,67 @@
+{% extends "usersapp/base.html" %}
+
+{% block content %}
+
+<div class="container my-2">
+    <h4 class="text-center">Upcoming Birthdays</h4>
+    <form class="form-control" method="POST" action="{% url 'contactsapp:upcoming_birthdays' %}">
+        {% csrf_token %}
+        <div class="d-flex my-1">
+            <label class="nav-link fs-6 mt-1 mx-2" for="days">Number of days:</label>
+            <input type="number" name="days" id="days" min="1" max="365">
+            <button class="btn btn-success mx-2" type="submit">Search</button>
+        </div>
+    </form>
+{% if contacts %}
+        <div class="container my-2">
+            <div class="container my-2">
+                <div class="text-center">
+                    <div class="scroll-table">
+                        <table class="table">
+                            <thead>
+                            <tr class="tr">
+                                <th scope="col">first_name</th>
+                                <th scope="col">last_name</th>
+                                <th scope="col">email</th>
+                                <th scope="col">phone_number</th>
+                                <th scope="col">birth_date</th>
+                                <th scope="col">status</th>
+                                <th scope="col">sex</th>
+                                <th scope="col">TG</th>
+
+                            </tr>
+                            </thead>
+                        </table>
+
+                        <div class="scroll-table-body">
+                            <table class="my-table">
+                                <tbody class="my_tr">
+
+                                {% for contact in contacts %}
+                                <tr>
+                                    <td><a href="{% url 'contactsapp:upcoming_birthdays' %}">{{contact.first_name}}</a></td>
+                                    <td>{{contact.last_name}}</td>
+                                    <td>{{contact.email|truncatechars:13}}</td>
+                                    {% if contact.phone_number != 'None' %}
+                                    <td>{{contact.phone_number}}</td>
+                                    {% else %}
+                                    <td>- - - -</td>
+                                    {% endif %}
+                                    <td>{{contact.birth_date}}</td>
+                                    <td>{{contact.status}}</td>
+                                    <td>{{contact.sex}}</td>
+                                </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% else %}
+        <div class="pt-10 text-center fs-4"><u>No contacts found.</u></div>
+    {% endif %}
+</div>
+{% endblock %}

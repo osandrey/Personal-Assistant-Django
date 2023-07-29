@@ -2,7 +2,7 @@ from django.core.mail import EmailMessage
 
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, HttpResponse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.template.loader import render_to_string
@@ -105,7 +105,12 @@ def login_user(request):
 @login_required
 def logout_user(request):
     logout(request)
-    return redirect(to='usersapp:main')
+    return redirect(to='usersapp:login_user')
+
+
+@login_required
+def success(request):
+    return render(request, 'usersapp/success.html')
 
 
 class ResetPasswordView(SuccessMessageMixin, PasswordResetView):

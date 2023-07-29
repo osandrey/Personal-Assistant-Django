@@ -1,5 +1,13 @@
 <style>
 
+td{
+margin: auto
+}
+
+th{
+margin: auto
+}
+
 .gradient-custom-2 {
     background: #fccb90;
     background: -webkit-linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593);
@@ -46,4 +54,16 @@ border-bottom-right-radius: .3rem;
 
 .button-container .btn:first-child {
         margin-right: 10px;
+
+h2.text-uppercase.text-center.mb-3 {
+    color: #6c757d;
+  }
+.navbar {
+  background-color: green;
+  color: aqua;
+}
+
+.form-outline {
+    font-size: 14px; /* Set your desired font size here */
+  }
 </style>

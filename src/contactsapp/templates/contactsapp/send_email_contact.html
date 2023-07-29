@@ -1,0 +1,13 @@
+{% extends "usersapp/base.html" %}
+
+{% block content %}
+
+<div class="container-fluid me-2 pe-3">
+    <h4 class="pt-10 text-center fs-4">Send Email</h4>
+    <form method="POST" action="{% url 'contactsapp:send_email_contact' contact.id %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button class="btn btn-success mx-3" type="submit">Send</button>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,95 @@
+{% extends "usersapp/base.html" %}
+
+{% block content %}
+
+<div class="container my-2">
+<!--    <h4 class="text-center">Search by Note ('all' or space to display all note)</h4>-->
+    <form class="d-flex" role="search" method="GET" action="{% url 'notesapp:search_note' %}">
+        <input class="form-control me-2" name="search_query" type="search" placeholder="Search by Note ('all' or space to display all notes)" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit" class="btn btn-warning"
+                style="padding: 5px 10px;">Search
+        </button>
+    </form>
+
+    {% if search_query_note %}
+    <h4 class="text-center">Search results for "{{ search_query_note }}"</h4>
+        {% if all_notes %}
+     <div class="container my-2">
+        <div class="container m-10">
+            <div class="text-center">
+                <div class="scroll-table">
+                    <table class="table">
+                        <thead>
+                        <tr class="tr">
+                            <th scope="col">title</th>
+                            <th scope="col">description</th>
+                            <th scope="col">tags</th>
+                        </tr>
+                        </thead>
+                    </table>
+
+                    <div class="scroll-table-body">
+                        <table class="my-table">
+                            <tbody class="my_tr">
+
+                            {% for note in all_notes %}
+                            <tr>
+                                <td><a href="{% url 'notesapp:detail_note' note.id %}">{{note.title}}</a></td>
+                                <td>{{note.description}}</td>
+                                <td>
+                                    {% for tag in note.tags.all %}
+                                    <a href="{% url 'notesapp:tag_sort' tag.id %}">{{tag.name}}, </a>
+                                    {% endfor %}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    {% endif %}
+        {% if search_results_note %}
+        <div class="container my-2">
+            <div class="container m-10">
+                <div class="text-center">
+                    <div class="scroll-table">
+                        <table class="table">
+                            <thead>
+                            <tr class="tr">
+                                <th scope="col">title</th>
+                                <th scope="col">description</th>
+                                <th scope="col">tags</th>
+
+                            </tr>
+                            </thead>
+                        </table>
+
+                        <div class="scroll-table-body">
+                            <table class="my-table">
+                                <tbody class="my_tr">
+
+                                {% for note in search_results_note %}
+                                <tr>
+                                    <td><a href="{% url 'notesapp:detail_note' note.id %}">{{note.title}}</a></td>
+                                    <td>{{note.description}}</td>
+                                    <td>
+                                        {% for tag in note.tags.all %}
+                                        <a href="{% url 'notesapp:tag_sort' tag.id %}">{{tag.name}}, </a>
+                                        {% endfor %}
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+     {% endif %}
+    {% endif %}
+</div>
+{% endblock %}

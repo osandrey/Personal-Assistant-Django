@@ -8,19 +8,37 @@ class ContactForm(forms.ModelForm):
     address = forms.CharField(required=True)
     phone_number = forms.CharField(required=True)
     email = forms.EmailField(required=True)
-    birth_date = forms.DateField(required=True, widget=forms.DateInput(format='%Y-%m-%d', attrs={'placeholder': 'year-mount-day'}))
+    birth_date = forms.DateField(required=True,
+                                 widget=forms.DateInput(format='%Y-%m-%d', attrs={'placeholder': 'year-mount-day'}))
     sex = forms.ChoiceField(required=True, choices=(("male", "male"), ("female", "female")))
-    status = forms.ChoiceField(required=True, choices=(("family", "family"), ("friend", "friend"), ("partner", "partner"), ("colleague", "colleague"), ("other", "other")))
+    status = forms.ChoiceField(required=True, choices=(
+        ("family", "family"), ("friend", "friend"), ("partner", "partner"), ("colleague", "colleague"),
+        ("other", "other")))
 
     class Meta:
         model = Contact
-        fields = ['first_name', 'last_name', 'address', 'phone_number', 'email',  'address',  'birth_date', 'sex', 'status']
+        fields = ['first_name', 'last_name', 'address', 'phone_number', 'email', 'address', 'birth_date', 'sex',
+                  'status']
 
 
-class SendEmailForm(forms.Form):
-    subject = forms.CharField(max_length=100)
-    message = forms.CharField(widget=forms.Textarea)
+class SendEmailForm(forms.ModelForm):
+    coppy_to = forms.CharField(max_length=100,
+                               required=True,
+                               widget=forms.TextInput(attrs={'class': 'form-control'}))
+
+    theme = forms.CharField(max_length=200,
+                            required=True,
+                            widget=forms.TextInput(attrs={'class': 'form-control'}))
+
+    text = forms.CharField(max_length=2400,
+                           required=True,
+                           widget=forms.TextInput(attrs={'class': 'form-control'}))
+
+    attachment = forms.FileField(
+        required=False,
+        widget=forms.ClearableFileInput(attrs={'class': 'form-select'})
+    )
 
     class Meta:
         model = Contact
-        fields = ['subject', 'message']
+        fields = ['coppy_to', 'theme', 'text', 'attachment']

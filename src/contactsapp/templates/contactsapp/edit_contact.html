@@ -3,31 +3,31 @@
 {% block content %}
 
 <div class="container-fluid me-2 pe-3">
-    <h4 class="text-center">Update Contact</h4>
-    <form class="container me-2" method="POST" action="{% url 'contactsapp:update_contact' contact.id %}">
+    <h4 class="text-center">Edit Contact</h4>
+    <form class="container me-2" method="POST" action="{% url 'contactsapp:edit_contact' contact.id %}">
         {% csrf_token %}
         <div style="container me-2">
-            <label class="form-label">Contact first name*:</label>
+            <label class="form-label">Edit first name*:</label>
             <div class="row col-4">{{form.first_name}}</div>
         </div>
         <div style="container me-2">
-            <label class="form-label">Contact last name*:</label>
+            <label class="form-label">Edit last name*:</label>
             <div class="row col-4">{{form.last_name}}</div>
         </div>
         <div style="container me-2">
-            <label class="form-label">Contact address*:</label>
+            <label class="form-label">Edit address*:</label>
             <div class="row col-4">{{form.address}}</div>
         </div>
         <div style="container me-2">
-            <label class="form-label">Contact phone_number*:</label>
+            <label class="form-label">Edit phone_number*:</label>
             <div class="row col-4">{{form.phone_number}}</div>
         </div>
         <div style="container me-2">
-            <label class="form-label">Contact email*:</label>
+            <label class="form-label">Edit email*:</label>
             <div class="row col-4">{{form.email}}</div>
         </div>
         <div style="container me-2">
-            <label class="form-label">Contact birthday date*:</label>
+            <label class="form-label">Edit birthday date*:</label>
             <div class="row col-4">{{form.birth_date}}</div>
         </div>
         <div>

@@ -78,8 +78,6 @@
                     <th scope="col">email</th>
                     <th scope="col">phone_number</th>
                     <th scope="col">birth_date</th>
-                    <th scope="col">age</th>
-                    <th scope="col">created_at</th>
                     <th scope="col">status</th>
                     <th scope="col">sex</th>
                     <th scope="col">TG</th>
@@ -94,7 +92,7 @@
 
                     {% for contact in all_results_contact %}
                     <tr>
-                        <td><a href=#>{{contact.first_name}}</a></td>
+                        <td><a href="{% url 'contactsapp:detail_contact' contact.id %}">{{contact.first_name}}</a></td>
                         <td>{{contact.last_name}}</td>
                         <td>{{contact.email|truncatechars:15}}</td>
                         {% if contact.phone_number != 'None' %}
@@ -103,20 +101,13 @@
                         <td>- - - -</td>
                         {% endif %}
                         <td>{{contact.birth_date}}</td>
-                        <td>{{contact.age}}</td>
-
-                        <td>{{contact.created_at}}</td>
                         <td>{{contact.status}}</td>
                         <td>{{contact.sex}}</td>
                         <td>
-
                             <div class="small text-center button-container">
                                 <a href="{% url 'ai_chat_bot:redirect_check' query=contact.id  %}" class="text-center"><i>Virtual
                                     Contact Chat</i></a>
                             </div>
-
-
-
                         </td>
                     </tr>
                     {% endfor %}
@@ -140,8 +131,6 @@
                     <th scope="col">email</th>
                     <th scope="col">phone_number</th>
                     <th scope="col">birth_date</th>
-                    <th scope="col">age</th>
-                    <th scope="col">created_at</th>
                     <th scope="col">status</th>
                     <th scope="col">sex</th>
                     <th scope="col">TG</th>
@@ -156,7 +145,7 @@
 
                     {% for contact in search_results_contact %}
                     <tr>
-                        <td><a href=#>{{contact.first_name}}</a></td>
+                        <td><a href="{% url 'contactsapp:detail_contact' contact.id %}">{{contact.first_name}}</a></td>
                         <td>{{contact.last_name}}</td>
                         <td>{{contact.email|truncatechars:15}}</td>
                         {% if contact.phone_number != 'None' %}
@@ -165,9 +154,6 @@
                         <td>- - - -</td>
                         {% endif %}
                         <td>{{contact.birth_date}}</td>
-                        <td>{{contact.age}}</td>
-
-                        <td>{{contact.created_at}}</td>
                         <td>{{contact.status}}</td>
                         <td>{{contact.sex}}</td>
                         <td>
@@ -185,7 +171,7 @@
             </div>
         </div>
     </div>
-</div> else %}
+</div>
         {% endif %}
     {% endif %}
 </div>

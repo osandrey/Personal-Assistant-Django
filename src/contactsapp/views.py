@@ -36,7 +36,6 @@ environ.Env.read_env(BASE_DIR / ".env")
 # /Users/ekaterina/Documents/GitHub/Personal-Assistant-Django
 Secret_Key = env("SECRET_KEY")
 
-
 MetaLogin = env("EMAIL_HOST_USER")
 MetaPassword = env("EMAIL_HOST_PASSWORD")
 
@@ -54,9 +53,8 @@ def search_contact(request):
         models.Q(birth_date__icontains=search_query_contact)
     )
     if search_query_contact == ' ' or search_query_contact == 'all':
-        all_results_contact = Contact.objects.all()
         context = {
-            'all_results_contact': all_results_contact,
+            'all_results_contact': user_contacts,
             'search_query_contact': search_query_contact
         }
         return render(request, 'contactsapp/search_contact.html', context)
@@ -132,7 +130,6 @@ def upcoming_birthdays(request):
 
     else:
         result = []
-    print(result)
     return render(request, 'contactsapp/upcoming_birthdays.html', context={'contacts': result})
 
 
@@ -160,6 +157,7 @@ def send_email(self, request, obj):
 class ContactObjectMixin(object):
     model = Contact
 
+    @login_required
     def get_object(self):
         _id = self.kwargs.get('id')
         obj = None
@@ -171,6 +169,7 @@ class ContactObjectMixin(object):
         return self.kwargs.get("id")
 
 
+@login_required
 def handle_uploaded_file(file: InMemoryUploadedFile):
     try:
         file_name = file.name
@@ -189,6 +188,7 @@ def handle_uploaded_file(file: InMemoryUploadedFile):
 class ContactSendEmail(ContactObjectMixin, View):
     template_name = 'contactsapp/send_email.html'  # DetailView
 
+    @login_required
     def get(self, request, _id=None, *args, **kwargs):
         context = {}
         obj = self.get_object()
@@ -198,6 +198,7 @@ class ContactSendEmail(ContactObjectMixin, View):
 
         return render(request, self.template_name, context={"form": form, "object": obj})
 
+    @login_required
     def post(self, request, id=None, *args, **kwargs):
         context = {}
         obj = self.get_object()
@@ -208,6 +209,7 @@ class ContactSendEmail(ContactObjectMixin, View):
         return render(request, self.template_name, context)
 
 
+@login_required
 def run_send_email(obj: Contact, data: dict):
     user_name = obj.first_name + " " + obj.last_name
     Sender = MetaLogin
@@ -219,6 +221,7 @@ def run_send_email(obj: Contact, data: dict):
     mail.send()
 
 
+@login_required
 def run_send_email_with_file(obj: Contact, data: dict, file_path: str):
     user_name = obj.first_name + " " + obj.last_name
     Sender = MetaLogin
@@ -233,6 +236,7 @@ def run_send_email_with_file(obj: Contact, data: dict, file_path: str):
         mail.send()
 
 
+@login_required
 def send_email(request, obj):
     if request.method == 'POST':
         form = SendEmailForm(request.POST, request.FILES)

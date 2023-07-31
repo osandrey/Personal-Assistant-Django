@@ -19,7 +19,7 @@
         <div class="collapse navbar-collapse" id="navbarScroll">
             <ul>
                 <li role="list" dir="rtl">
-                    <a href="#" aria-haspopup="listbox" role="button">Contact</a>
+                    <a href="{% url 'contactsapp:search_contact' %}" aria-haspopup="listbox" role="button">Contact</a>
                     <ul role="listbox">
                         <li role="button"><a href="{% url 'contactsapp:search_contact' %}">Search contact</a></li>
                         <li role="button"><a href="{% url 'contactsapp:add_contact' %}">Add contact</a></li>
@@ -30,7 +30,7 @@
             </ul>
             <ul>
                 <li role="list" dir="rtl">
-                    <a href="#" aria-haspopup="listbox" role="button">Tag</a>
+                    <a href="{% url 'notesapp:search_tag' %}" aria-haspopup="listbox" role="button">Tag</a>
                     <ul role="listbox">
                         <li role="button"><a href="{% url 'notesapp:search_tag' %}">Search tag</a></li>
                         <li role="button"><a href="{% url 'notesapp:add_tag' %}">Add tag</a></li>
@@ -39,7 +39,7 @@
             </ul>
             <ul>
                 <li role="list" dir="rtl">
-                    <a href="#" aria-haspopup="listbox" role="button">Note</a>
+                    <a href="{% url 'notesapp:search_note' %}" aria-haspopup="listbox" role="button">Note</a>
                     <ul role="listbox">
                         <li role="button"><a href="{% url 'notesapp:search_note' %}">Search note</a></li>
                         <li role="button"><a href="{% url 'notesapp:add_note' %}">Add note</a></li>

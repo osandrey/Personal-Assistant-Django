@@ -254,7 +254,9 @@ def remove_file(request, file_path):
     folder = file_path.split('/')[1]
     print(folder)
     dbx = get_access_dbx(request)
+    file_path = file_path.replace('%2520', ' ')
     file_path = file_path.replace('%20', ' ')
+
     if isinstance(dbx, (HttpResponseRedirect, type(None))):
         print(f'ISTANCE ::::::::::::::: {dbx}')
         return redirect(to='cloud_storageapp:dropbox_oauth')

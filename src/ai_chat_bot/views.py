@@ -119,7 +119,6 @@ def redirect_check(request, query):
     if tg_user_id:
         asyncio.run(start_chatting(tg_user_id, CURRENT_USER, contact_id=query))
 
-
         return redirect(to="https://t.me/ChefHelperBot")
     with open('ai_chat_bot/temp_curent_user.txt', 'w') as file:
         file.write(str(CURRENT_USER))
@@ -146,7 +145,8 @@ async def start_chatting(tg_user_id, user_id, contact_id):
 
         contact_first_name = contact[1]
         contact_last_name = contact[2]
-        contact_bday = contact[3].strftime("%Y-%m-%d")
+        contact_bday = contact[3]
+        # contact_bday = contact[3].strftime("%Y-%m-%d")
         contact_address = contact[6]
         contact_gender = contact[8]
         contact_status = contact[9]
@@ -202,7 +202,8 @@ async def handle_ai_message(message: types.Message):
     if contact:
         contact_first_name = contact[1]
         contact_last_name = contact[2]
-        contact_bday = contact[3].strftime("%Y-%m-%d")
+        contact_bday = contact[3]
+        # contact_bday = contact[3].strftime("%Y-%m-%d")
         contact_address = contact[6]
         contact_gender = contact[8]
         contact_status = contact[9]

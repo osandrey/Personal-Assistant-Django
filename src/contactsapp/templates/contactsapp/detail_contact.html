@@ -1,0 +1,30 @@
+{% extends "usersapp/base.html" %}
+
+{% block content %}
+<div class="container my-1">
+    {% if contact %}
+            <h4 class="text-center">Results for Contact "{{ contact.first_name }}"</h4>
+        <div class="container my-1">
+            <div class="form-control d-flex flex-row">
+                <div class="flex-fill">
+                    <strong>First name:</strong> {{ contact.first_name }}<br>
+                    <strong>Last name:</strong> {{ contact.last_name }}<br>
+                    <strong>Address:</strong> {{ contact.address }}<br>
+                    <strong>Phone Number:</strong> {{ contact.phone_number }}<br>
+                    <strong>Email:</strong> {{ contact.email }}<br>
+                    <strong>Birthday Date:</strong> {{ contact.birth_date }}<br>
+                    <strong>Sex:</strong> {{ contact.sex }}<br>
+                    <strong>Status Date:</strong> {{ contact.status }}<br>
+                </div>
+                <div class="d-flex align-items-center">
+                    <a class="btn btn-warning mx-2"  href="{% url 'contactsapp:edit_contact' contact.id %}">Update Contact</a>
+                    <a class="btn btn-danger mx-2"  href="{% url 'contactsapp:delete_contact' contact.id %}">Delete</a>
+                    <a class="btn btn-primary mx-2"  href="{% url 'contactsapp:send_email' contact.id %}">Send email</a>
+                </div>
+            </div>
+        </div>
+    {% else %}
+    <div class="pt-10 text-center fs-4"><u>No contacts found.</u></div>
+    {% endif %}
+</div>
+{% endblock %}

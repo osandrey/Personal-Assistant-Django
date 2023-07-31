@@ -1,0 +1,55 @@
+{% extends "usersapp/base.html" %}
+
+{% block content %}
+
+<div class="container-fluid me-2 pe-3">
+    <h4 class="text-center">Edit Contact</h4>
+    <form class="container me-2" method="POST" action="{% url 'contactsapp:edit_contact' contact.id %}">
+        {% csrf_token %}
+        <div style="container me-2">
+            <label class="form-label">Edit first name*:</label>
+            <div class="row col-4">{{form.first_name}}</div>
+        </div>
+        <div style="container me-2">
+            <label class="form-label">Edit last name*:</label>
+            <div class="row col-4">{{form.last_name}}</div>
+        </div>
+        <div style="container me-2">
+            <label class="form-label">Edit address*:</label>
+            <div class="row col-4">{{form.address}}</div>
+        </div>
+        <div style="container me-2">
+            <label class="form-label">Edit phone_number*:</label>
+            <div class="row col-4">{{form.phone_number}}</div>
+        </div>
+        <div style="container me-2">
+            <label class="form-label">Edit email*:</label>
+            <div class="row col-4">{{form.email}}</div>
+        </div>
+        <div style="container me-2">
+            <label class="form-label">Edit birthday date*:</label>
+            <div class="row col-4">{{form.birth_date}}</div>
+        </div>
+        <div>
+            <select name="sex" id="id_sex">
+                <option value="male">male</option>
+                <option value="female">female</option>
+            </select>
+        </div>
+        <div>
+            <select name="status" id="id_status">
+                <option value="family">family</option>
+                <option value="friend">friend</option>
+                <option value="partner">partner</option>
+                <option value="colleague">colleague</option>
+                <option value="other">other</option>
+            </select>
+        </div>
+
+        <div class="grid mt-2">
+            <button class="btn btn-success mx-3" type="submit">Save</button>
+        </div>
+    </form>
+</div>
+
+{% endblock %}

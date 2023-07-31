@@ -1,0 +1,92 @@
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+        <div class="navbar-brand"><a class="navbar-brand" href="{% url 'usersapp:main' %}"><h2>Personal Assistant</h2></a></div>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll"
+                aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <!--      <button-->
+        <!--            class="navbar-toggler"-->
+        <!--            type="button"-->
+        <!--            data-toggle="collapse"-->
+        <!--            data-target="#navbarScroll"-->
+        <!--            aria-controls="navbarScroll"-->
+        <!--            aria-expanded="false"-->
+        <!--            aria-label="Toggle navigation">-->
+        <!--        <span class="navbar-toggler-icon"></span>-->
+        <!--    </button>-->
+        <div class="collapse navbar-collapse" id="navbarScroll">
+            <ul>
+                <li role="list" dir="rtl">
+                    <a href="#" aria-haspopup="listbox" role="button">Contact</a>
+                    <ul role="listbox">
+                        <li role="button"><a href="{% url 'contactsapp:search_contact' %}">Search contact</a></li>
+                        <li role="button"><a href="{% url 'contactsapp:add_contact' %}">Add contact</a></li>
+                        <li role="button"><a href="{% url 'contactsapp:upcoming_birthdays' %}">Upcoming birthdays</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <ul>
+                <li role="list" dir="rtl">
+                    <a href="#" aria-haspopup="listbox" role="button">Tag</a>
+                    <ul role="listbox">
+                        <li role="button"><a href="{% url 'notesapp:search_tag' %}">Search tag</a></li>
+                        <li role="button"><a href="{% url 'notesapp:add_tag' %}">Add tag</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <ul>
+                <li role="list" dir="rtl">
+                    <a href="#" aria-haspopup="listbox" role="button">Note</a>
+                    <ul role="listbox">
+                        <li role="button"><a href="{% url 'notesapp:search_note' %}">Search note</a></li>
+                        <li role="button"><a href="{% url 'notesapp:add_note' %}">Add note</a></li>
+
+                    </ul>
+                </li>
+            </ul>
+            <ul>
+                <li role="list" dir="rtl">
+                    <a href="#" aria-haspopup="listbox" role="button">File</a>
+                    <ul role="listbox">
+                        <li role="button"><a href="#">Load file</a></li>
+                        <li role="button"><a href="#">Download file</a></li>
+                    </ul>
+                </li>
+            </ul>
+
+            <ul>
+                <li role="list" dir="rtl">
+                   <a href="#" aria-haspopup="listbox" role="button">News</a>
+                   <ul role="listbox">
+                    <li role="button"><a href="{% url 'newsapp:read_news' q='war_in_ukraine' %}" id="btn_war_ukraine">War in Ukraine</a></li>
+                    <li role="button"><a href="{% url 'newsapp:read_news' q='business' %}" id="btn_business">Business</a></li>
+                    <li role="button"><a href="{% url 'newsapp:read_news' q='since' %}" id="btn_since">Since</a></li>
+                  </ul>
+                </li>
+            </ul>
+
+            {% if user.is_authenticated %}
+            <div class="d-flex justify-content-center">
+                <a href="{% url 'usersapp:logout_user' %}?next={% url 'usersapp:login_user' %}"
+                   class="btn btn-success btn-block btn-lg gradient-custom-5 text-body">
+                    Logout
+                </a>
+
+
+                {% else %}
+                <div class="d-flex justify-content-center button-container">
+                    <a href="{% url 'usersapp:login_user' %}" type="button"
+                       class="btn btn-success btn-block btn-lg gradient-custom-5 text-body"
+                       style="padding: 5px 10px;  margin-left: 10px;">Login</a>
+                    <a href="{% url 'usersapp:create_user_profile' %}" type="button"
+                       class="btn btn-success btn-block btn-lg gradient-custom-5 text-body"
+                       style="padding: 5px 10px;  margin-left: 10px;">Sign Up</a>
+                </div>
+                {% endif %}
+
+
+            </div>
+        </div>
+    </div>
+</nav>

@@ -10,65 +10,49 @@
         </button>
     </form>
 
-    {% if search_query_tag %}
-        <h4 class="text-center">Search results for "{{ search_query_tag }}"</h4>
-        {% if all_tags %}
+
+{% if search_query_tag %}
+<h4 class="text-center">Search results for "{{ search_query_tag }}"</h4>
+{% for tag in all_tags %}
             <div class="container my-2">
                 <div class="container m-10">
                     <div class="text-center">
                         <div class="scroll-table">
-                            <table class="table">
-                                <thead>
-                                    <tr class="tr">
-                                    <th scope="col">tag</th>
-                                    </tr>
-                                </thead>
-                            </table>
-                        </div>
-                        <div class="scroll-table-body">
-                            <table class="my-table">
-                                <tbody class="my_tr">
-                                {% for tag in all_tags %}
-                                <tr>
-                                    <td><a href="{% url 'notesapp:detail_tag' tag.id %}">{{tag.name}}</a></td>
+                            <table align="center" class="table">
+                                <tr align="center" class="tr">
+                                <th align="center"><strong>tag</strong></th>
+                                </tr>
+                                <tr align="center">
+                                    <td align="center"><a href="{% url 'notesapp:detail_tag' tag.id %}">{{tag.name}}</a></td>
                                 </tr>
                                 {% endfor %}
-                                </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
             </div>
-        {% endif %}
-        {% if search_results_tag %}
+{% endif %}
+{% if search_results_tag %}
+<h4 class="text-center">Search results for "{{ search_query_tag }}"</h4>
+{% for tag in all_tags %}
             <div class="container my-2">
                 <div class="container m-10">
                     <div class="text-center">
                         <div class="scroll-table">
                             <table class="table">
-                                <thead>
-                                    <tr class="tr">
-                                        <th scope="col">tag</th>
-                                    </tr>
-                                </thead>
-                            </table>
-                            <div class="scroll-table-body">
-                                <table class="my-table">
-                                    <tbody class="my_tr">
-                                {% for tag in all_tags %}
+                                <tr class="tr">
+                                    <th><strong>tag</strong></th>
+                                 <hr>
+                                </tr>
                                 <tr>
                                     <td><a href="{% url 'notesapp:detail_tag' tag.id %}">{{tag.name}}</a></td>
                                 </tr>
                                 {% endfor %}
-                                    </tbody>
                                 </table>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            {% else %}
-        {% endif %}
-    {% endif %}
-</div>
+{% endif %}
 {% endblock %}

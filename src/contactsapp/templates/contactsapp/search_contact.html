@@ -71,26 +71,18 @@
     <div class="text-center">
         <div class="scroll-table">
             <table class="table">
-                <thead>
-                <tr class="tr">
-                    <th scope="col">first_name</th>
-                    <th scope="col">last_name</th>
-                    <th scope="col">email</th>
-                    <th scope="col">phone_number</th>
-                    <th scope="col">birth_date</th>
-                    <th scope="col">status</th>
-                    <th scope="col">sex</th>
-                    <th scope="col">TG</th>
-
-                </tr>
-                </thead>
-            </table>
-
-            <div class="scroll-table-body">
-                <table class="my-table">
-                    <tbody class="my_tr">
-
-                    {% for contact in all_results_contact %}
+                <tbody class="my_tr">
+                    <tr>
+                        <td>First_name</td>
+                        <td>Last_name</td>
+                        <td>Email</td>
+                        <td>Phone number</td>
+                        <td>Birthday date</td>
+                        <td>Status</td>
+                        <td>Sex</td>
+                        <td>Contact Chat</td>
+                    </tr>
+                          {% for contact in all_results_contact %}
                     <tr>
                         <td><a href="{% url 'contactsapp:detail_contact' contact.id %}">{{contact.first_name}}</a></td>
                         <td>{{contact.last_name}}</td>
@@ -111,9 +103,8 @@
                         </td>
                     </tr>
                     {% endfor %}
-                    </tbody>
-                </table>
-            </div>
+                </tbody>
+            </table>
         </div>
     </div>
 </div>

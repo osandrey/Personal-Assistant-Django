@@ -11,10 +11,9 @@ def search_note(request):
     user_notes = Note.objects.filter(user=request.user)
     search_results_note = user_notes.filter(title__icontains=search_query_note)
     if search_query_note == ' ' or search_query_note == 'all':
-        all_notes = Note.objects.all()
         context = {
             'search_query_note': search_query_note,
-            'all_notes': all_notes,
+            'all_notes': user_notes,
         }
         return render(request, 'notesapp/search_note.html', context)
 
@@ -32,11 +31,11 @@ def search_tag(request):
     search_query_tag = request.GET.get('search_query', '')
     user_tags = Tag.objects.filter(user=request.user)
     search_results_tag = user_tags.filter(name__icontains=search_query_tag)
+
     if search_query_tag == ' ' or search_query_tag == 'all':
-        all_tags = Tag.objects.all()
         context = {
             'search_query_tag': search_query_tag,
-            'all_tags': all_tags
+            'all_tags': user_tags
         }
         return render(request, 'notesapp/search_tag.html', context)
 
@@ -136,6 +135,7 @@ def delete_tag(request, tag_id):
     return render(request, 'notesapp/delete_tag.html', {'tag': tag})
 
 
+@login_required
 def tag_sort(request, tag_id):
     tags = Tag.objects.filter(id=tag_id).first()
     notes = Note.objects.filter(tags=tag_id).all()

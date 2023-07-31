@@ -8,6 +8,12 @@ th{
 margin: auto
 }
 
+@media (min-width: 768px) {
+.col-md-6 {
+    flex: 0 0 auto;
+    width: 200%;
+}}
+
 .gradient-custom-2 {
     background: #fccb90;
     background: -webkit-linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593);
@@ -61,7 +67,9 @@ border-bottom-right-radius: .3rem;
   background-color: rgba(0, 255, 255, 0.5);;
   color: rgba(0, 255, 255, 0.5);
 }
-
+.custom-card {
+  max-width: 80vw; /* Set the card's maximum width to 80% of the viewport width */
+}
 
 }
 </style>

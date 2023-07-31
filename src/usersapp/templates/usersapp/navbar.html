@@ -1,6 +1,7 @@
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
     <div class="container-fluid">
-        <div class="navbar-brand"><a class="navbar-brand" href="{% url 'usersapp:main' %}"><h2>Personal Assistant</h2></a></div>
+        <div class="navbar-brand"><a class="navbar-brand" href="{% url 'usersapp:main' %}"><h2>Personal Assistant</h2>
+        </a></div>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll"
                 aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -22,7 +23,8 @@
                     <ul role="listbox">
                         <li role="button"><a href="{% url 'contactsapp:search_contact' %}">Search contact</a></li>
                         <li role="button"><a href="{% url 'contactsapp:add_contact' %}">Add contact</a></li>
-                        <li role="button"><a href="{% url 'contactsapp:upcoming_birthdays' %}">Upcoming birthdays</a></li>
+                        <li role="button"><a href="{% url 'contactsapp:upcoming_birthdays' %}">Upcoming birthdays</a>
+                        </li>
                     </ul>
                 </li>
             </ul>
@@ -47,43 +49,48 @@
             </ul>
             <ul>
                 <li role="list" dir="rtl">
-                    <a href="#" aria-haspopup="listbox" role="button">File</a>
+                    <a href="{% url 'cloud_storageapp:dropbox_folders' %}" aria-haspopup="listbox"
+                       role="button">File</a>
                     <ul role="listbox">
-                        <li role="button"><a href="#">Load file</a></li>
-                        <li role="button"><a href="#">Download file</a></li>
+                        <li role="button"><a href="{% url 'cloud_storageapp:upload_file' %}">Load file</a></li>
+                        <li role="button"><a href="{% url 'cloud_storageapp:dropbox_folders' %}">Download file</a></li>
                     </ul>
                 </li>
             </ul>
 
             <ul>
                 <li role="list" dir="rtl">
-                   <a href="#" aria-haspopup="listbox" role="button">News</a>
-                   <ul role="listbox">
-                    <li role="button"><a href="{% url 'newsapp:read_news' q='war_in_ukraine' %}" id="btn_war_ukraine">War in Ukraine</a></li>
-                    <li role="button"><a href="{% url 'newsapp:read_news' q='business' %}" id="btn_business">Business</a></li>
-                    <li role="button"><a href="{% url 'newsapp:read_news' q='since' %}" id="btn_since">Since</a></li>
-                  </ul>
+                    <a href="#" aria-haspopup="listbox" role="button">News</a>
+                    <ul role="listbox">
+                        <li role="button"><a href="{% url 'newsapp:read_news' q='war_in_ukraine' %}"
+                                             id="btn_war_ukraine">War in Ukraine</a></li>
+                        <li role="button"><a href="{% url 'newsapp:read_news' q='business' %}" id="btn_business">Business</a>
+                        </li>
+                        <li role="button"><a href="{% url 'newsapp:read_news' q='since' %}" id="btn_since">Since</a>
+                        </li>
+                    </ul>
                 </li>
             </ul>
 
             {% if user.is_authenticated %}
-            <div class="d-flex justify-content-center">
-                <a href="{% url 'usersapp:logout_user' %}?next={% url 'usersapp:login_user' %}"
-                   class="btn btn-success btn-block btn-lg gradient-custom-5 text-body">
-                    Logout
-                </a>
-
-
-                {% else %}
-                <div class="d-flex justify-content-center button-container">
-                    <a href="{% url 'usersapp:login_user' %}" type="button"
-                       class="btn btn-success btn-block btn-lg gradient-custom-5 text-body"
-                       style="padding: 5px 10px;  margin-left: 10px;">Login</a>
-                    <a href="{% url 'usersapp:create_user_profile' %}" type="button"
-                       class="btn btn-success btn-block btn-lg gradient-custom-5 text-body"
-                       style="padding: 5px 10px;  margin-left: 10px;">Sign Up</a>
-                </div>
-                {% endif %}
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a href="{% url 'usersapp:logout_user' %}?next={% url 'usersapp:login_user' %}"
+                           class="btn btn-success btn-block btn-lg gradient-custom-5 text-body">Logout</a>
+                    </li>
+                </ul>
+            {% else %}
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a href="{% url 'usersapp:login_user' %}" type="button"
+                           class="btn btn-success btn-block btn-lg gradient-custom-5 text-body">Login</a>
+                    </li>
+                    <li class="nav-item ms-auto">
+                        <a href="{% url 'usersapp:create_user_profile' %}" type="button"
+                           class="btn btn-success btn-block btn-lg gradient-custom-5 text-body">Sign Up</a>
+                    </li>
+                </ul>
+            {% endif %}
 
 
             </div>

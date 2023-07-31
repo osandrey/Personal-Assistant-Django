@@ -1,4 +1,6 @@
 from datetime import date, timedelta
+from pathlib import Path
+
 from django.shortcuts import render
 from django.utils import timezone
 from django.shortcuts import render, redirect, get_object_or_404, HttpResponse
@@ -9,7 +11,7 @@ from .models import Contact
 
 from .forms import SendEmailForm, ContactForm
 from .models import Contact
-from dotenv import dotenv_values
+import environ
 import os
 import smtplib
 import ssl
@@ -25,9 +27,18 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.db.models import Q
 from django.views import View
 
-CONFIG = dotenv_values('.env')
-MetaLogin = CONFIG.get("EMAIL_HOST_USER")
-MetaPassword = CONFIG.get("EMAIL_HOST_PASSWORD")
+BASE_DIR = Path(__file__).resolve().parent.parent
+env = environ.Env()
+
+environ.Env.read_env(BASE_DIR / ".env")
+# print(f'{BASE_DIR} ~~ YOUR BASE_DIR')
+
+# /Users/ekaterina/Documents/GitHub/Personal-Assistant-Django
+Secret_Key = env("SECRET_KEY")
+
+
+MetaLogin = env("EMAIL_HOST_USER")
+MetaPassword = env("EMAIL_HOST_PASSWORD")
 
 
 @login_required

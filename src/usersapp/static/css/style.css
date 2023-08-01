@@ -54,11 +54,7 @@ border-bottom-right-radius: .3rem;
         margin-right: 10px;
 
 
-/* Add green and aqua styles for the navbar */
-.navbar {
-  background-color: rgba(0, 255, 255, 0.5);;
-  color: rgba(0, 255, 255, 0.5);
-}
+
 .custom-card {
   max-width: 80vw; /* Set the card's maximum width to 80% of the viewport width */
 }

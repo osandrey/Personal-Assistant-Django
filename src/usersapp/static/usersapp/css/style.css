@@ -32,21 +32,6 @@ border-bottom-right-radius: .3rem;
     background: linear-gradient(to right, rgba(132, 250, 176, 0.5), rgba(143, 211, 244, 0.5))
 }
 
-input, select, textarea {
-    --background-color: #f8f9fa;
-    --border-color: #212529;
-    --color: var(--form-element-color);
-    --box-shadow: none;
-    border: var(--border-width) solid var(--border-color);
-    border-radius: var(--border-radius);
-    outline: 0;
-    background-color: var(--background-color);
-    box-shadow: var(--box-shadow);
-    color: var(--color);
-    font-weight: var(--font-weight);
-    transition: background-color var(--transition),border-color var(--transition),color var(--transition),box-shadow var(--transition);
-}
-
 
 .gradient-custom-4 {
     background: #84fab0;
@@ -74,10 +59,7 @@ input, select, textarea {
 h2.text-uppercase.text-center.mb-3 {
     color: #6c757d;
   }
-.navbar {
-  background-color: green;
-  color: aqua;
-}
+
 
 .form-outline {
     font-size: 14px; /* Set your desired font size here */

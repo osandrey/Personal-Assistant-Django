@@ -141,8 +141,6 @@ def folder_files(request, folder_path):
     if isinstance(dbx, (HttpResponseRedirect, type(None))):
         print(f'ISTANCE ::::::::::::::: {dbx}')
         return redirect(to='cloud_storageapp:dropbox_oauth')
-    # folder_path = str(folder_path).strip('/')
-    # List all files in the specified folder
     files = []
     try:
         result = dbx.files_list_folder(folder_path)
@@ -191,7 +189,7 @@ def upload_file(request):
             file = request.FILES['file']
             print(f"FILE CLEAN NAME :  {file.name.replace(' ', '_')}")
             clean_file_name = file.name.replace(' ', '_')
-            file_path = f'/{folder}/{clean_file_name}' if folder else f'/{clean_file_name}'
+            file_path = f'/{folder}/{clean_file_name}' if folder else f'/unknown/{clean_file_name}'
             print(f"FILE PASS II : {file_path}")
             dbx.files_upload(file.read(), file_path)
 
@@ -264,6 +262,134 @@ def remove_file(request, file_path):
     dbx.files_delete_v2(file_path)
     print('files was removed')
     return redirect(to='cloud_storageapp:folder_files', folder_path=f"/{folder}")
+
+
+def folder_files_docs(request, folder_path):
+    print(str(folder_path).strip('/'))
+    dbx = get_access_dbx(request)
+    if isinstance(dbx, (HttpResponseRedirect, type(None))):
+        print(f'ISTANCE ::::::::::::::: {dbx}')
+        return redirect(to='cloud_storageapp:dropbox_oauth')
+    files = []
+    folders = []
+
+    try:
+        result = dbx.files_list_folder(folder_path)
+        for entry in result.entries:
+            if isinstance(entry, dropbox.files.FileMetadata):
+                _, file_extension = os.path.splitext(entry.name)
+                if file_extension.lower() in ['.docx', '.doc','.pdf','.xls','.xlsx','.ppt','.pptx','.xps','.dot','.wbk','.docm','.txt','.rtf','.log']:
+                    files.append(entry)
+        for entry in dbx.files_list_folder('', recursive=True).entries:
+            if isinstance(entry, dropbox.files.FolderMetadata):
+                folders.append(entry)
+    except dropbox.exceptions.ApiError as e:
+        if e.error.is_path() and \
+                e.user_message_text.startswith("not_folder/"):
+            # The provided path is not a folder path, handle the error as needed
+            pass
+        else:
+            raise
+
+    context = {'files': files, 'folder_path': folder_path, 'folders': folders}
+    return render(request, 'folder_files_docs.html', context)
+
+
+
+def folder_files_audio(request, folder_path):
+    print(str(folder_path).strip('/'))
+    dbx = get_access_dbx(request)
+    if isinstance(dbx, (HttpResponseRedirect, type(None))):
+        print(f'ISTANCE ::::::::::::::: {dbx}')
+        return redirect(to='cloud_storageapp:dropbox_oauth')
+    files = []
+    folders = []
+
+    try:
+        result = dbx.files_list_folder(folder_path)
+        for entry in result.entries:
+            if isinstance(entry, dropbox.files.FileMetadata):
+                _, file_extension = os.path.splitext(entry.name)
+                if file_extension.lower() in ['.aac', '.mp3','.wav','.wma','.dolby','.digital','.dts','.aiff','.asf','.flac','.adpcm','.dsd','.lpcm','.ogg']:
+                    files.append(entry)
+        for entry in dbx.files_list_folder('', recursive=True).entries:
+            if isinstance(entry, dropbox.files.FolderMetadata):
+                folders.append(entry)
+    except dropbox.exceptions.ApiError as e:
+        if e.error.is_path() and \
+                e.user_message_text.startswith("not_folder/"):
+            # The provided path is not a folder path, handle the error as needed
+            pass
+        else:
+            raise
+
+    context = {'files': files, 'folder_path': folder_path, 'folders': folders}
+    return render(request, 'folder_files_docs.html', context)
+
+
+
+def folder_files_video(request, folder_path):
+    print(str(folder_path).strip('/'))
+    dbx = get_access_dbx(request)
+    if isinstance(dbx, (HttpResponseRedirect, type(None))):
+        print(f'ISTANCE ::::::::::::::: {dbx}')
+        return redirect(to='cloud_storageapp:dropbox_oauth')
+    files = []
+    folders = []
+
+    try:
+        result = dbx.files_list_folder(folder_path)
+        for entry in result.entries:
+            if isinstance(entry, dropbox.files.FileMetadata):
+                _, file_extension = os.path.splitext(entry.name)
+                if file_extension.lower() in ['.mpeg-1', '.mpeg-4','.mpeg-2','.avi','.mov','.avchd','.divx','.hd','.mkv','.webm','.flv','.viv','.ts','.mpg']:
+                    files.append(entry)
+        for entry in dbx.files_list_folder('', recursive=True).entries:
+            if isinstance(entry, dropbox.files.FolderMetadata):
+                folders.append(entry)
+    except dropbox.exceptions.ApiError as e:
+        if e.error.is_path() and \
+                e.user_message_text.startswith("not_folder/"):
+            # The provided path is not a folder path, handle the error as needed
+            pass
+        else:
+            raise
+
+    context = {'files': files, 'folder_path': folder_path, 'folders': folders}
+    return render(request, 'folder_files_docs.html', context)
+
+
+
+
+def folder_files_images(request, folder_path):
+    print(str(folder_path).strip('/'))
+    dbx = get_access_dbx(request)
+    if isinstance(dbx, (HttpResponseRedirect, type(None))):
+        print(f'ISTANCE ::::::::::::::: {dbx}')
+        return redirect(to='cloud_storageapp:dropbox_oauth')
+    files = []
+    folders = []
+
+    try:
+        result = dbx.files_list_folder(folder_path)
+        for entry in result.entries:
+            if isinstance(entry, dropbox.files.FileMetadata):
+                _, file_extension = os.path.splitext(entry.name)
+                if file_extension.lower() in ['.jpg', '.jpeg', '.jpe', '.jif', '.jfif', '.jfi', '.png','.gif','.webp','.tiff','.tif','.psd','.bmp','.dib','.raw','.arw','.nrw','.img']:
+                    files.append(entry)
+        for entry in dbx.files_list_folder('', recursive=True).entries:
+            if isinstance(entry, dropbox.files.FolderMetadata):
+                folders.append(entry)
+    except dropbox.exceptions.ApiError as e:
+        if e.error.is_path() and \
+                e.user_message_text.startswith("not_folder/"):
+            # The provided path is not a folder path, handle the error as needed
+            pass
+        else:
+            raise
+
+    context = {'files': files, 'folder_path': folder_path, 'folders': folders}
+    return render(request, 'folder_files_docs.html', context)
 
 
 

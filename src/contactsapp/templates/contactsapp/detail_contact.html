@@ -22,9 +22,8 @@
                     <a class="btn btn-primary mx-2"  href="{% url 'contactsapp:send_email' contact.id %}">Send email</a>
                 </div>
             </div>
+            <div align="right"><button class="btn btn-success mx-2 col-2" type="button" onclick="history.back()">Back</button></div>
         </div>
-    {% else %}
-    <div class="pt-10 text-center fs-4"><u>No contacts found.</u></div>
     {% endif %}
 </div>
 {% endblock %}

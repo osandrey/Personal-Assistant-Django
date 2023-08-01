@@ -8,7 +8,7 @@
         <div class="d-flex flex-column align-items-center">
             <div class="my-2">Are you sure you want to delete the note "{{ note.title }}"?</div>
             <button class="btn btn-danger mx-2 col-2" type="submit">Yes</button>
-            <a href="{% url 'usersapp:main' %}">No</a>
+            <button class="btn btn-success mx-2 col-2"  type="button" onclick="history.back()">Back</button>
         </div>
     </form>
 </div>

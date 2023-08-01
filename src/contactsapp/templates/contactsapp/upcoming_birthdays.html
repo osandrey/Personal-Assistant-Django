@@ -13,6 +13,7 @@
         </div>
     </form>
 {% if contacts %}
+    <h4 class="text-center">Results</h4>
         <div class="container my-2">
             <div class="container my-2">
                 <div class="text-center">
@@ -32,7 +33,6 @@
                             </tr>
                             </thead>
                         </table>
-
                         <div class="scroll-table-body">
                             <table class="my-table">
                                 <tbody class="my_tr">
@@ -59,9 +59,6 @@
                 </div>
             </div>
         </div>
-
-        {% else %}
-        <div class="pt-10 text-center fs-4"><u>No contacts found.</u></div>
     {% endif %}
 </div>
 {% endblock %}

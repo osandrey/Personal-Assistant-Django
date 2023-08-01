@@ -36,7 +36,6 @@ environ.Env.read_env(BASE_DIR / ".env")
 # /Users/ekaterina/Documents/GitHub/Personal-Assistant-Django
 Secret_Key = env("SECRET_KEY")
 
-
 MetaLogin = env("EMAIL_HOST_USER")
 MetaPassword = env("EMAIL_HOST_PASSWORD")
 
@@ -54,9 +53,8 @@ def search_contact(request):
         models.Q(birth_date__icontains=search_query_contact)
     )
     if search_query_contact == ' ' or search_query_contact == 'all':
-        all_results_contact = Contact.objects.all()
         context = {
-            'all_results_contact': all_results_contact,
+            'all_results_contact': user_contacts,
             'search_query_contact': search_query_contact
         }
         return render(request, 'contactsapp/search_contact.html', context)
@@ -132,29 +130,7 @@ def upcoming_birthdays(request):
 
     else:
         result = []
-    print(result)
     return render(request, 'contactsapp/upcoming_birthdays.html', context={'contacts': result})
-
-
-@login_required
-def send_email(self, request, obj):
-    if request.method == 'POST':
-        print('I am in send email POST method!')
-        form = SendEmailForm(request.POST, request.FILES)
-        if form.is_valid():
-            # File upload handling logic
-
-            attachment_file: InMemoryUploadedFile = form.cleaned_data['attachment']
-            file_path = handle_uploaded_file(attachment_file)
-            # Process the file as needed
-            print('I am in sending email form is OK!')
-            print(form.cleaned_data)
-
-            run_send_email(obj, form.cleaned_data, file_path)
-            return render(request, 'usersapp/success.html')
-    else:
-        form = SendEmailForm()
-    return render(request, 'contactsapp/send_email.html', {'form': form})
 
 
 class ContactObjectMixin(object):
@@ -169,21 +145,6 @@ class ContactObjectMixin(object):
 
     def get_id(self):
         return self.kwargs.get("id")
-
-
-def handle_uploaded_file(file: InMemoryUploadedFile):
-    try:
-        file_name = file.name
-        upload_folder_path = "uploads/"
-        if not os.path.exists(upload_folder_path):
-            os.mkdir(upload_folder_path)
-        file_path = upload_folder_path + file_name
-        file_contents = file.read()
-        with open(file_path, 'wb') as destination:
-            destination.write(file_contents)
-        return file_path
-    except AttributeError:
-        return None
 
 
 class ContactSendEmail(ContactObjectMixin, View):
@@ -208,28 +169,37 @@ class ContactSendEmail(ContactObjectMixin, View):
         return render(request, self.template_name, context)
 
 
-def run_send_email(obj: Contact, data: dict):
+def handle_uploaded_file(file: InMemoryUploadedFile):
+    try:
+        file_name = file.name
+        upload_folder_path = "uploads/"
+        if not os.path.exists(upload_folder_path):
+            os.mkdir(upload_folder_path)
+        file_path = upload_folder_path + file_name
+        file_contents = file.read()
+        with open(file_path, 'wb') as destination:
+            destination.write(file_contents)
+        return file_path
+    except AttributeError:
+        return None
+
+
+def run_send_email(obj: Contact, data: dict, file_path: str):
     user_name = obj.first_name + " " + obj.last_name
     Sender = MetaLogin
     receiver_email = obj.email
     subject = f"Subject: Greetings, dear {user_name}, {data['theme']}"
     message = data['text']
-    mail = EmailMessage(subject=subject, body=message, from_email=Sender, to=[receiver_email],
-                        cc=[data.get('coppy_to')])
-    mail.send()
-
-
-def run_send_email_with_file(obj: Contact, data: dict, file_path: str):
-    user_name = obj.first_name + " " + obj.last_name
-    Sender = MetaLogin
-    receiver_email = obj.email
-    subject = f"Subject: Greetings, dear {user_name}, {data['theme']}"
-    message = data['text']
-    attachment_name = os.path.basename(file_path)
-    with open(file_path, 'rb') as attachment:
+    if file_path:
+        attachment_name = os.path.basename(file_path)
+        with open(file_path, 'rb') as attachment:
+            mail = EmailMessage(subject=subject, body=message, from_email=Sender, to=[receiver_email],
+                                cc=[data.get('coppy_to')])
+            mail.attach(attachment_name, attachment.read(), data.get('attachment').content_type)
+            mail.send()
+    else:
         mail = EmailMessage(subject=subject, body=message, from_email=Sender, to=[receiver_email],
                             cc=[data.get('coppy_to')])
-        mail.attach(attachment_name, attachment.read(), data.get('attachment').content_type)
         mail.send()
 
 
@@ -239,12 +209,8 @@ def send_email(request, obj):
         if form.is_valid():
             attachment_file: InMemoryUploadedFile = form.cleaned_data['attachment']
             file_path = handle_uploaded_file(attachment_file)
-            if file_path:
-                run_send_email_with_file(obj, form.cleaned_data, file_path)
-                return render(request, 'usersapp/success.html')
-            else:
-                run_send_email(obj, form.cleaned_data)
-                return render(request, 'usersapp/success.html')
+            run_send_email(obj, form.cleaned_data, file_path)
+            return render(request, 'usersapp/success.html')
     else:
         form = SendEmailForm()
     return render(request, 'contactsapp/send_email.html', {'form': form})

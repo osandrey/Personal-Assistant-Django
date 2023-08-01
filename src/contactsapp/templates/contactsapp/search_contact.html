@@ -1,7 +1,14 @@
 {% extends "usersapp/base.html" %}
 {% load static %}
+
+{% block content %}
 <style>
-  .scroll-table-body {
+.custom-container {
+    width: 100%;
+    margin: 0 auto; /* To center the container horizontally */
+    }
+
+.scroll-table-body {
   text-align: center;
  height: 700px;
  overflow-x: center;
@@ -20,7 +27,7 @@
  text-align: center;
  border: none;
  padding: 10px 15px;
- background: #07A1C0;
+ background: #b3b3b3;
  font-size: 14px;
  border-left: 1px solid #ddd;
  border-right: 1px solid #ddd;
@@ -35,7 +42,7 @@
 }
 .scroll-table tbody tr:nth-child(even){
  text-align: center;
- background: #F3F3F3;
+ background: #b3b3b3;
 }
 .table {
         text-align: center;
@@ -67,42 +74,41 @@ text-align: center;
 
 th{
 text-align: center;
+color: #b3b3b3;
 }
 
 </style>
-{% block content %}
-
 <div class="container my-2">
 <!--    <h4 class="text-center">Search by Contact ('all' or space to display all contacts)</h4>-->
     <form class="d-flex" role="search" method="GET" action="{% url 'contactsapp:search_contact' %}">
-        <input class="form-control me-2" name="search_query" type="search" placeholder="Search by Contact ('all' or space to display all contacts)" aria-label="Search">
-        <button class="btn btn-outline-success" type="submit" class="btn btn-warning" style="padding: 5px 10px;">Search</button>
+        <input class="form-control me-4" name="search_query" type="search" placeholder="Search by Contact ('all' or space to display all contacts)" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit" style="padding: 5px 10px;">Search</button>
     </form>
 
 {% if search_query_contact %}
 <h4 class="text-center">Search results for "{{ search_query_contact }}"</h4>
 {% if all_results_contact %}
-{% for contact in all_results_contact %}
-<div class="container m-10">
+<div class="custom-container md-10">
     <div class="text-center">
         <div class="scroll-table">
             <table class="table">
                 <thead>
                 <tr class="tr">
-                    <th><strong>first_name</strong></th>
-                    <th><strong>last_name</strong></th>
-                    <th><strong>email</strong></th>
-                    <th><strong>phone_number</strong></th>
-                    <th><strong>birth_date</strong></th>
-                    <th><strong>status</strong></th>
-                    <th><strong>sex</strong></th>
+                    <th><strong>First name</strong></th>
+                    <th><strong>Last name</strong></th>
+                    <th><strong>Email</strong></th>
+                    <th><strong>Phone number</strong></th>
+                    <th><strong>Birthday</strong></th>
+                    <th><strong>Status</strong></th>
+                    <th><strong>Sex</strong></th>
                     <th><strong>TG</strong></th>
                     <hr>
                 </tr>
+                {% for contact in all_results_contact %}
                 <tr>
                     <td><a href="{% url 'contactsapp:detail_contact' contact.id %}">{{contact.first_name}}</a></td>
                     <td>{{contact.last_name}}</td>
-                    <td>{{contact.email|truncatechars:15}}</td>
+                    <td><a href="{% url 'contactsapp:send_email' contact.id %}">{{contact.email|truncatechars:15}}</a></td>
                     {% if contact.phone_number != 'None' %}
                     <td>{{contact.phone_number}}</td>
                     {% else %}
@@ -126,9 +132,8 @@ text-align: center;
     </div>
 </div>
 {% endif %}
-{% if all_results_contact %}
-{% for contact in search_results_contact %}
-      <div class="container m-10">
+{% if search_results_contact %}
+      <div class="custom-container m-10">
     <div class="text-center">
         <div class="scroll-table">
             <table class="table">
@@ -144,10 +149,11 @@ text-align: center;
                     <th><strong>TG</strong></th>
                     <hr>
                 </tr>
+                {% for contact in search_results_contact %}
                 <tr>
                     <td><a href="{% url 'contactsapp:detail_contact' contact.id %}">{{contact.first_name}}</a></td>
                     <td>{{contact.last_name}}</td>
-                    <td>{{contact.email|truncatechars:15}}</td>
+                    <td><a href="{% url 'contactsapp:send_email' contact.id %}">{{contact.email|truncatechars:15}}</a></td>
                     {% if contact.phone_number != 'None' %}
                     <td>{{contact.phone_number}}</td>
                     {% else %}

@@ -1,7 +1,81 @@
 {% extends "usersapp/base.html" %}
 
 {% block content %}
+<style>
+.custom-container {
+    width: 40%;
+    margin: 0 auto; /* To center the container horizontally */
+    }
 
+.scroll-table-body {
+  text-align: center;
+ height: 700px;
+ overflow-x: center;
+ margin-top: 0px;
+ margin-bottom: 20px;
+ border-bottom: 1px solid #eee;
+}
+.scroll-table table {
+ text-align: center;
+ width:100%;
+ table-layout: fixed;
+ border: 1px solid #ddd;
+}
+.scroll-table thead th {
+ font-weight: bold;
+ text-align: center;
+ border: none;
+ padding: 10px 15px;
+ background: #b3b3b3;
+ font-size: 14px;
+ border-left: 1px solid #ddd;
+ border-right: 1px solid #ddd;
+}
+.scroll-table tbody td {
+ text-align: center;
+ border-left: 1px solid #ddd;
+ border-right: 1px solid #ddd;
+ padding: 10px 15px;
+ font-size: 14px;
+ vertical-align: top;
+}
+.scroll-table tbody tr:nth-child(even){
+ text-align: center;
+ background: #b3b3b3;
+}
+.table {
+        text-align: center;
+        background-color: #C5F2F3;
+        padding: 10px;
+        color: #DE00FF;
+
+    }
+.my-table {
+        text-align: center;
+        background-color: #C5F2F3;
+        padding: 10px;
+        color: #616161;
+}
+/* Стили для скролла */
+::-webkit-scrollbar {
+ width: 6px;
+}
+::-webkit-scrollbar-track {
+ box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+}
+::-webkit-scrollbar-thumb {
+ box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+}
+
+td{
+text-align: center;
+}
+
+th{
+text-align: center;
+color: #b3b3b3;
+}
+</style>
 <div class="container my-2">
 <!--    <h4 class="text-center">Search by Contact ('all' or space to display all tag)</h4>-->
         <form class="d-flex" role="search" method="GET" action="{% url 'notesapp:search_tag' %}">
@@ -13,17 +87,18 @@
 
 {% if search_query_tag %}
 <h4 class="text-center">Search results for "{{ search_query_tag }}"</h4>
-{% for tag in all_tags %}
-            <div class="container my-2">
-                <div class="container m-10">
+{% if all_tags %}
+                <div class="custom-container m-10">
                     <div class="text-center">
                         <div class="scroll-table">
-                            <table align="center" class="table">
-                                <tr align="center" class="tr">
-                                <th align="center"><strong>tag</strong></th>
+                            <table class="table">
+                                <thead>
+                                <tr class="tr">
+                                    <th><strong>Tag</strong>
                                 </tr>
-                                <tr align="center">
-                                    <td align="center"><a href="{% url 'notesapp:detail_tag' tag.id %}">{{tag.name}}</a></td>
+                                    {% for tag in all_tags %}
+                                <tr>
+                                    <td><a href="{% url 'notesapp:detail_tag' tag.id %}">{{tag.name}}</a></td>
                                 </tr>
                                 {% endfor %}
                             </table>
@@ -33,17 +108,15 @@
             </div>
 {% endif %}
 {% if search_results_tag %}
-<h4 class="text-center">Search results for "{{ search_query_tag }}"</h4>
-{% for tag in all_tags %}
-            <div class="container my-2">
-                <div class="container m-10">
+                <div class="custom-container m-10">
                     <div class="text-center">
                         <div class="scroll-table">
                             <table class="table">
-                                <tr class="tr">
-                                    <th><strong>tag</strong></th>
-                                 <hr>
+                                <thead>
+                               <tr class="tr">
+                                    <th><strong>Tag</strong>
                                 </tr>
+                                    {% for tag in search_results_tag %}
                                 <tr>
                                     <td><a href="{% url 'notesapp:detail_tag' tag.id %}">{{tag.name}}</a></td>
                                 </tr>
@@ -52,7 +125,6 @@
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
+{% endif %}
 {% endif %}
 {% endblock %}

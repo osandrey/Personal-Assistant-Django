@@ -14,5 +14,9 @@ urlpatterns = [
     path('dropbox-folders/<path:folder_path>/', views.folder_files, name='folder_files'),
     path('download-file/<path:file_path>/', views.download_file, name='download_file'),
     path('remove-folder/<path:folder_path>/', views.remove_folder, name='remove_folder'),
-    path('remove-file/<path:file_path>/', views.remove_file, name='remove_file')
+    path('remove-file/<path:file_path>/', views.remove_file, name='remove_file'),
+    path('dropbox-folders-docs/<path:folder_path>/', views.folder_files_docs, name='folder_files_docs'),
+    path('dropbox-folders-pics/<path:folder_path>/', views.folder_files_images, name='folder_files_images'),
+    path('dropbox-folders-video/<path:folder_path>/', views.folder_files_video, name='folder_files_video'),
+    path('dropbox-folders-audio/<path:folder_path>/', views.folder_files_audio, name='folder_files_audio'),
 ]

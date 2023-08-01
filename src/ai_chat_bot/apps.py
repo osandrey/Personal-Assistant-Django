@@ -7,13 +7,13 @@ class AiChatBotConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
     name = 'ai_chat_bot'
 
-    def ready(self):
-        try:
-            bot_process = Process(target=run_polling)
-            bot_process.start()
-            print(f'Process started with name: {bot_process.name}')
-        except TerminatedByOtherGetUpdates as err:
-            print(err)
+    # def ready(self):
+    #     try:
+    #         bot_process = Process(target=run_polling)
+    #         bot_process.start()
+    #         print(f'Process started with name: {bot_process.name}')
+    #     except Exception as err:
+    #         print(err)
 
 
 

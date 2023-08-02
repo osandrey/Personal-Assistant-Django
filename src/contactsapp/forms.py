@@ -32,7 +32,7 @@ class SendEmailForm(forms.ModelForm):
 
     text = forms.CharField(max_length=2400,
                            required=True,
-                           widget=forms.TextInput(attrs={'class': 'form-control'}))
+                           widget=forms.Textarea(attrs={'class': 'form-control'}))
 
     attachment = forms.FileField(
         required=False,

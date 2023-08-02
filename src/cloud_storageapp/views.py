@@ -8,7 +8,7 @@ from django.shortcuts import render, redirect
 import environ
 import dropbox
 from .forms import FileUploadForm
-import cloudinary
+
 import datetime
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -54,27 +54,27 @@ def dropbox_authorized(request):
 
 
 
-"""query for search!"""
-def search_files(request, claudinary=None):
-    if request.method == "POST":
-        data=requests.post("https://api.dropboxapi.com/2/files/search_v2", headers={
-            "Authorization": f"Bearer {request.session['DROPBOX_ACCESS_TOKEN']}",
-        }, json={
-            "query": "cc"
-        })
-
-        results = []
-        for f in data.json()["matches"]:
-            id = f["metadata"]["metadata"]["id"]
-            data = requests.post("https://api.dropboxapi.com/2/files/get_preview", headers={
-                "Authorization": f"Bearer {request.session['DROPBOX_ACCESS_TOKEN']}",
-                 "Dropbox-API-Arg": json.dumps({"path": id})}, stream=True)
-            print(data.text)
-            r = claudinary.uploader.upload(data.content)
-            img_url = r["secure_url"]
-            return JsonResponse(data.json())
-    else:
-        return render(request, "cloud_storageapp/search.html")
+# """query for search!"""
+# def search_files(request, claudinary=None):
+#     if request.method == "POST":
+#         data=requests.post("https://api.dropboxapi.com/2/files/search_v2", headers={
+#             "Authorization": f"Bearer {request.session['DROPBOX_ACCESS_TOKEN']}",
+#         }, json={
+#             "query": "cc"
+#         })
+#
+#         results = []
+#         for f in data.json()["matches"]:
+#             id = f["metadata"]["metadata"]["id"]
+#             data = requests.post("https://api.dropboxapi.com/2/files/get_preview", headers={
+#                 "Authorization": f"Bearer {request.session['DROPBOX_ACCESS_TOKEN']}",
+#                  "Dropbox-API-Arg": json.dumps({"path": id})}, stream=True)
+#             print(data.text)
+#             r = claudinary.uploader.upload(data.content)
+#             img_url = r["secure_url"]
+#             return JsonResponse(data.json())
+#     else:
+#         return render(request, "cloud_storageapp/search.html")
 
 
 def get_access_token():

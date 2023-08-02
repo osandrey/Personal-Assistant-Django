@@ -74,6 +74,7 @@ def news_sport():
 
 def parse_page(string:str):
     link = ''
+    img_src = ''
     print(string)
     for i in Data:
         
@@ -104,6 +105,6 @@ def parse_page(string:str):
     text = '\n'.join(text_list)
     text = text.replace('© 2023 BBC. The BBC is not responsible for the content of external sites. Read about our approach to external linking.', '')
 
-    return title, text , img_src
+    return title, text, img_src
 
 news_sport()

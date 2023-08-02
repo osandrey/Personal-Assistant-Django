@@ -44,7 +44,12 @@ def choice_topic(request, q):
 def paragraph(request, q):
  
     title, text, picture = parse_page(q)
-    print(picture)
-    return render(request, 'newsapp/detail_paragraph.html', {"article_content": text, 'article_title': title, 'article_picture': picture})
+    context = {
+        'title': title,
+        'content': text,
+        'picture': picture,
+    }
+    print(f"CONTENT   ::::   {context}")
+    return render(request, 'newsapp/detail_paragraph.html', context)
 
    

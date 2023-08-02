@@ -1,5 +1,6 @@
 from .views import main, login_user, create_user_profile, logout_user, ResetPasswordView, activate, success
 from django.contrib.auth.views import PasswordResetDoneView, PasswordResetConfirmView, PasswordResetCompleteView
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
@@ -26,6 +27,8 @@ urlpatterns = [
     path('activate/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/',
             activate, name='activate'),
 ]
+
+urlpatterns += staticfiles_urlpatterns()
 
 
 if settings.DEBUG:

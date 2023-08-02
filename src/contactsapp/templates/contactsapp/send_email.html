@@ -1,17 +1,23 @@
 {% extends "usersapp/base.html" %}
 
 {% block content %}
-<div class="card">
-        <div class="big-text">
-<div class="container m-10">
-    <div class="text-left">
+<div class="container h-80">
+    <div class="row d-flex justify-content-center align-items-center h-80">
+        <div class="col-12 col-md-2 col-lg-6 col-xl-5">
+            <div class="card" style="border-radius: 15px;">
+                <div class="card-body p-5">
+                    {% if form.errors %}
+                    <span class="alert alert-danger" role="alert">{{form.non_field_errors}}</span>
+                    {% endif %}
         <form method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             {{ form.as_p }}
-            <button type="submit" class="btn btn-success btn-block btn-lg gradient-custom-5 text-body col-5">Send email</button>
+            <button type="submit" class="btn btn-success btn-block btn-lg gradient-custom-5 text-body col-5">Send</button>
         </form>
     </div>
 </div>
 </div>
 </div>
+</div>
+
 {% endblock %}

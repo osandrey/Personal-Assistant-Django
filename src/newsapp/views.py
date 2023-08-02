@@ -44,6 +44,7 @@ def choice_topic(request, q):
 def paragraph(request, q):
  
     title, text, picture = parse_page(q)
+    print(f'Text: : : :  {text}')
     context = {
         'title': title,
         'content': text,

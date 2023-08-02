@@ -65,8 +65,6 @@ def news_sport():
     # time.sleep(delay)
     # Data = data[0:10]
 
-
-    
     return Data
     
 
@@ -75,7 +73,7 @@ def news_sport():
 def parse_page(string:str):
     link = ''
     img_src = ''
-    print(string)
+
     for i in Data:
         
         if i['title'] == string:
@@ -84,6 +82,7 @@ def parse_page(string:str):
 
     url = link
     req = requests.get(url, headers={'User-Agent': 'V'})
+    print(f"REQUEST:: : : : :  {req.text}")
     soup = BeautifulSoup(req.content, 'html.parser')
    
     result = soup.find('h1')
@@ -96,12 +95,12 @@ def parse_page(string:str):
     if img_tag:
        
         img_src = img_tag.get('src')
-        
 
     div_element = soup.find_all(
-        'p', class_='ssrcss-1q0x1qg-Paragraph eq5iqo00')
+        'p', class_='ssrcss-1q0x1qg-Paragraph')
     
     text_list = [p_element.text for p_element in div_element]
+
     text = '\n'.join(text_list)
     text = text.replace('© 2023 BBC. The BBC is not responsible for the content of external sites. Read about our approach to external linking.', '')
 

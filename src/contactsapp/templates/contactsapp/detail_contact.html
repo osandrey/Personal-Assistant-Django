@@ -1,6 +1,11 @@
 {% extends "usersapp/base.html" %}
 
 {% block content %}
+<style>
+.btn-container {
+margin-right: 10px;
+}
+</style>
 <div class="container my-1">
     {% if contact %}
             <h4 class="text-center">Results for Contact "{{ contact.first_name }}"</h4>
@@ -17,13 +22,19 @@
                     <strong>Status:</strong> {{ contact.status }}<br>
                 </div>
                 <div class="d-flex align-items-center">
-                    <a class="btn btn-success btn-block btn-lg gradient-custom-5 text-body"  href="{% url 'contactsapp:edit_contact' contact.id %}">Edit Contact</a>
-                    <a class="btn btn-success btn-block btn-lg gradient-custom-5 text-body"  href="{% url 'contactsapp:delete_contact' contact.id %}">Delete</a>
-                    <a class="btn btn-success btn-block btn-lg gradient-custom-5 text-body"  href="{% url 'contactsapp:send_email' contact.id %}">Send email</a>
+                    <div class="btn-container">
+                        <a class="btn btn-success btn-block btn-lg gradient-custom-5 text-body"  href="{% url 'contactsapp:edit_contact' contact.id %}">Edit Contact</a>
+                    </div>
+                    <div class="btn-container">
+                        <a class="btn btn-success btn-block btn-lg gradient-custom-5 text-body"  href="{% url 'contactsapp:delete_contact' contact.id %}">Delete</a>
+                    </div>
+                    <div class="btn-container">
+                        <a class="btn btn-success btn-block btn-lg gradient-custom-5 text-body"  href="{% url 'contactsapp:send_email' contact.id %}">Send email</a>
+                    </div>
                 </div>
             </div>
-            <div align="right"><button class="btn btn-success btn-block btn-lg gradient-custom-5 text-body col-1" type="button" onclick="history.back()">Back</button></div>
         </div>
+        <div align="right"><button class="btn btn-success btn-block btn-lg gradient-custom-5 text-body col-1" type="button" onclick="history.back()">Back</button></div>
     {% endif %}
 </div>
 {% endblock %}

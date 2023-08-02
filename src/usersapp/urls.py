@@ -1,4 +1,4 @@
-from .views import main, login_user, create_user_profile, logout_user, ResetPasswordView, activate, success
+from .views import main, login_user, create_user_profile, logout_user, ResetPasswordView, terms, activate, success
 from django.contrib.auth.views import PasswordResetDoneView, PasswordResetConfirmView, PasswordResetCompleteView
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.urls import path
@@ -10,6 +10,8 @@ app_name = 'usersapp'
 
 urlpatterns = [
     path('', main, name='main'),
+
+    path('terms/', terms, name='terms'),
     path('login/', login_user, name='login_user'),
     path('signup/', create_user_profile, name='create_user_profile'),
     path('logout/', logout_user, name='logout_user'),

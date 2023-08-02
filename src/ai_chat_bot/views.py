@@ -164,20 +164,22 @@ async def start_chatting(tg_user_id, user_id, contact_id):
 
 
 def generate_ai_message(question, contact_first_name, contact_last_name, contact_bday, contact_address, contact_gender, contact_status):
-    prompt = f"You are my {contact_status} with first name {contact_first_name} and last name {contact_last_name}, currently living in:{contact_address}, with {contact_gender} gender! Your birthday date is: {contact_bday}"
-    ptomptt = f'Image you are my {contact_status}, your name is {contact_first_name} and your gender is {contact_gender}.'
-    prompttt = f"Hello AI, I need your assistance with a chating with me as a real person. Generate chat message:  'You are my {contact_status} with first name {contact_first_name} and last name {contact_last_name}, currently living in: {contact_address}, with {contact_gender} gender! Your birthday date is: {contact_bday}.' Thank you!"
+
     promptttt = f"Please answer as a real {contact_status}.Like your first name is {contact_first_name} and last name is {contact_last_name}, currently living in: {contact_address}, with {contact_gender} gender!"
+
+
+    prompt = f"Answer me as it was written by human with name: {contact_first_name} {contact_last_name}."
+
 
     try:
         completion = openai.ChatCompletion.create(
 
             model=GPT_MODEL,
             messages=[
-                {"role": "system", "content": promptttt},
+                {"role": "system", "content": prompt},
                 {"role": "user", "content": question},
             ],
-            temperature=0.8,
+            temperature=0.9,
         )
         text = completion.choices[0].message.content
         return text

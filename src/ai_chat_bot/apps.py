@@ -12,7 +12,7 @@ class AiChatBotConfig(AppConfig):
     #         bot_process = Process(target=run_polling)
     #         bot_process.start()
     #         print(f'Process started with name: {bot_process.name}')
-    #     except TerminatedByOtherGetUpdates as err:
+    #     except Exception as err:
     #         print(err)
 
 

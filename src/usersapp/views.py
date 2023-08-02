@@ -22,6 +22,11 @@ from .models import CustomUser
 def main(request):
     return render(request=request, template_name='usersapp/index.html', context={})
 
+def root(request):
+    return render(request=request, template_name='usersapp/main.html', context={})
+
+def terms(request):
+    return render(request=request, template_name='usersapp/terms.html', context={})
 
 def create_user_profile(request):
     if request.user.is_authenticated:

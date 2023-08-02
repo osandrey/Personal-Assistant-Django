@@ -56,7 +56,7 @@
                                 <div class="form-check d-flex justify-content-center mb-2">
                                     <input class="form-check-input me-2" type="checkbox" value="" id="form2Example3cg"/>
                                     <label class="form-check-label" for="form2Example3cg">
-                                        I agree all statements in <a href="#!" class="text-body"><u>Terms of service</u></a>
+                                        I agree all statements in <a href="{% url 'usersapp:terms' %}" class="text-body"><u>Terms of service</u></a>
                                     </label>
                                 </div>
 
@@ -67,7 +67,7 @@
                                 </div>
 
                                 <p class="text-center text-muted mt-3 mb-0">Have already an account?
-                                    <a href="#!"
+                                    <a href="{% url 'usersapp:login_user' %}"
                                        class="fw-bold text-body"><u>Login
                                         here</u></a></p>
 

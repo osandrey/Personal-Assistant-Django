@@ -99,7 +99,7 @@ def parse_page(string:str):
         
 
     div_element = soup.find_all(
-        'p', class_='ssrcss-1q0x1qg-Paragraph eq5iqo00')
+        'p', class_='ssrcss-1q0x1qg-Paragraph')
     
     text_list = [p_element.text for p_element in div_element]
     text = '\n'.join(text_list)
@@ -107,4 +107,4 @@ def parse_page(string:str):
 
     return title, text, img_src
 
-news_sport()
+# news_sport()
